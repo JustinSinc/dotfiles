@@ -1,0 +1,179 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+ 
+# Bind mod key
+set $mod Mod4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# autostart programs
+exec --no-startup-id feh --bg-scale "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.jpg"
+exec --no-startup-id devmon
+exec --no-startup-id /usr/bin/xcalib -d :0 /usr/share/color/icc/ThinkpadW510.icm
+
+# Hide window titles on startup
+for_window [class="^.*"] border pixel 0
+ 
+# Font for window titles. Will also be used by the bar unless a different font
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+# hide window borders
+hide_edge_borders both
+
+# create workspaces
+workspace "1:cmd" output LVDS1
+workspace "2:web" output LVDS1
+workspace "3:irc" output LVDS1
+workspace "4:mp3" output LVDS1
+workspace "5:art" output LVDS1
+workspace "6:pdf" output LVDS1
+workspace "7:voip" output LVDS1
+workspace "8:misc" output LVDS1
+workspace "9:vid" output LVDS1
+workspace "0:vm" output LVDS1
+
+# switch to workspace
+bindsym $mod+1 workspace 1:cmd
+bindsym $mod+2 workspace 2:web
+bindsym $mod+3 workspace 3:irc
+bindsym $mod+4 workspace 4:mp3
+bindsym $mod+5 workspace 5:art
+bindsym $mod+6 workspace 6:pdf
+bindsym $mod+7 workspace 7:voip
+bindsym $mod+8 workspace 8:misc
+bindsym $mod+9 workspace 9:vid
+bindsym $mod+0 workspace 0:vm
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1:cmd
+bindsym $mod+Shift+2 move container to workspace 2:web
+bindsym $mod+Shift+3 move container to workspace 3:irc
+bindsym $mod+Shift+4 move container to workspace 4:mp3
+bindsym $mod+Shift+5 move container to workspace 5:art
+bindsym $mod+Shift+6 move container to workspace 6:pdf
+bindsym $mod+Shift+7 move container to workspace 7:voip
+bindsym $mod+Shift+8 move container to workspace 8:misc
+bindsym $mod+Shift+9 move container to workspace 9:cmd
+bindsym $mod+Shift+0 move container to workspace 0:vm
+
+# multi-monitor support
+workspace "A:cmd" output xinerama-1
+
+# switch workspaces with XF86Forward and XF86Back
+bindcode 166 workspace prev
+bindcode 167 workspace next
+
+# open programs in specific workspaces
+assign [class="Chromium"] 2:web
+assign [class="Firefox"] 2:web
+assign [class="Hexchat"] 3:irc
+assign [class="Audacity"] 4:mp3
+assign [class=Quodlibet"] 4:mp3
+assign [class="Darktable"] 5:art
+assign [class="Gimp"] 5:art
+assign [class="Evince"] 6:pdf
+assign [class="Mumble"] 7:voip
+assign [class="Deluge"] 8:misc
+assign [class="Wireshark"] 8:misc
+assign [class="PacketTracer6"] 8:misc
+assign [class="Steam"] 9:vid
+assign [class="Wine"] 9:vid
+assign [class="VirtualBox"] 0:vm
+assign [class="Virt-manager"] 0:vm
+
+# execute programs
+bindsym $mod+Return exec urxvt
+bindsym $mod+d exec deluge
+bindsym $mod+e exec thunar
+bindsym $mod+g exec gimp
+bindsym $mod+h exec hexchat
+bindsym $mod+i bar mode toggle
+bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.png" && sleep 1 && xset dpms force off
+bindsym $mod+m exec quodlibet
+bindsym $mod+o exec libreoffice
+bindsym $mod+p exec darktable
+bindsym $mod+Shift+p exec packettracer
+bindsym $mod+Shift+q exec xkill
+bindsym $mod+s exec skype
+bindsym $mod+Shift+s exec steam
+bindsym $mod+u exec mpc
+bindsym $mod+v exec gksudo virt-manager
+bindsym $mod+Shift+v exec virtualbox
+bindsym $mod+w exec /usr/bin/chromium
+bindsym $mod+Shift+w exec wireshark
+bindcode 135 exec scribes
+bindcode 232 exec /usr/sbin/lowerbrightness
+bindcode 233 exec /usr/sbin/raisebrightness
+
+# adjust volume
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+bindsym XF86AudioMute exec amixer -q set Master toggle
+ 
+ # control music
+bindcode 171 exec quodlibet --next
+bindcode 172 exec quodlibet --play-pause
+bindcode 173 exec quodlibet --previous
+bindcode 174 exec quodlibet --stop
+
+# scrot via printscreen
+bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
+bindcode 64+107 exec scrot -s '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
+  
+# kill focused window
+bindsym $mod+q kill
+ 
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+ 
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+ 
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+ 
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+ 
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        # Pressing left will shrink the window's width.
+        # Pressing right will grow the window's width.
+        # Pressing up will shrink the window's height.
+        # Pressing down will grow the window's height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+ 
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+ 
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+  
+bindsym $mod+r mode "resize"
+ 
+# start i3bar
+bar {
+	position top
+	colors {
+		background #383a3b
+		statusline #888888
+	}
+        font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+        font pango:Terminus 4
+	tray_output primary
+	status_command i3status
+}
