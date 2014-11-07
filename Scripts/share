@@ -1,5 +1,7 @@
 #!/bin/bash
 
+read uploadto
+
 # workaround for bashtrap issues
 file=$(echo $1)
 filecopy="$file.copy"
@@ -11,7 +13,7 @@ bashtrap()
 {
         clear
     echo "CTRL+C Detected! Removing partially copied file."
-    ssh ramnode -t "rm /var/www/justinsinkula.com/public_html/files/$file"
+    ssh ramnode -t "rm /var/www/$uploadto/public_html/files/$file"
     rm ./$filecopy
     exit 1
 }
@@ -28,13 +30,13 @@ if [ $# -lt 1 ]; then
 fi
 
 # copy files to remote server
-scp -q -P 443 ./$filecopy root@192.184.82.89:/var/www/justinsinkula.com/public_html/files/$file
+scp -q -P 443 ./$filecopy root@$uploadto:/var/www/$uploadto/public_html/files/$file
 
 # let user know file was uploaded
 echo 'File uploaded.'
 
 # print share link
-echo "Share link: http://justinsinkula.com/files/$file"
+echo "Share link: http://$uploadto/files/$file"
 
 # remove copied file
 rm ./$filecopy
