@@ -23,6 +23,6 @@ iptables -A INPUT -j REJECT --reject-with icmp-proto-unreachable
 iptables -A IN_SSH -m recent --name sshbf --rttl --rcheck --hitcount 3 --seconds 10 -j DROP
 iptables -A IN_SSH -m recent --name sshbf --rttl --rcheck --hitcount 4 --seconds 1800 -j DROP
 iptables -A IN_SSH -m recent --name sshbf --set -j ACCEPT
-iptables-save > /etc/iptables/iptables.rule
+iptables-save > /etc/iptables/iptables.rules
 systemctl restart iptables
 systemctl status iptables.service
