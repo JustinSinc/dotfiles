@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ask for user input
+echo "Please enter URL or IP of host"
 read uploadto
 
 # workaround for bashtrap issues
