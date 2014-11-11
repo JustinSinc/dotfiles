@@ -1,0 +1,26 @@
+#!/bin/bash
+
+clear
+
+echo -e "\n\nNew username:\n"
+read username
+useradd -m $username
+
+clear
+
+echo -e "\n\n"
+passwd $username
+
+clear
+
+echo -e "\n\nCreating user public html directory.\n\n"
+mkdir /home/$username/public_html/
+chown $username:$username /home/$username/public_html/
+
+echo -e "Setting up default .bashrc\n\n"
+cp /root/.bashrc.sample /home/$username/.bashrc
+chown $username:$username /home/$username/.bashrc
+
+echo -e "Setting up default shell: \n\n"
+
+chsh -s $(which bash) $username
