@@ -1,41 +1,44 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]; then
-  echo 1>&2 "Please add a new username as an argument."
-  exit 2
-fi
+echo -e "\n\nPlease enter username:\n\n"
+
+read username
 
 clear
 
-useradd -m $1 -s /bin/bash
+useradd -m $username -s /bin/bash
 
 clear
 
 echo -e "\n\n"
-passwd $1
+passwd $username
 
 clear
 
 echo -e "\n\nSetting up Apache.\n\n"
-sed "s/%USER/$1/g" /etc/apache2/sites-available/users > /etc/apache2/sites-available/$1
-ln -s /etc/apache2/sites-available/$1 /etc/apache2/sites-enabled/$1
-apdir="/var/log/apache2/$1/"
+sed "s/%USER/$username/g" /etc/apache2/sites-available/users > /etc/apache2/sit$
+ln -s /etc/apache2/sites-available/$username /etc/apache2/sites-enabled/$userna$
+apdir="/var/log/apache2/$username/"
 mkdir $apdir
 touch "$apdir/access.log"
 touch "$apdir/error.log"
-chown -R root:$1 $apdir
+chown -R root:$username $apdir
 chmod 750 $apdir
-mkdir /var/www/$1
-ln -s /var/www/$1 /home/$1/www
-chown -R $1:$1 /var/www/$1
+mkdir /var/www/$username
+ln -s /var/www/$username /home/$username/www
+chown -R $username:$username /var/www/$username
 service apache2 reload
 
 echo -e "Setting up default webpage.\n\n"
-cp /home/public/index.html.sample /home/$1/www/index.html
-chown $1:$1 /home/$1/www/index.html
-chmod 755 /home/$1/www/index.html
+cp /home/public/index.html.sample /home/$username/www/index.html
+chown $username:$username /home/$username/www/index.html
+chmod 755 /home/$username/www/index.html
+
+echo -e "Setting up filesharing.\n\n"
+mkdir /home/$username/files
+ln -s /home/$username/files /var/www/files/$username
 
 echo -e "Setting up default .bashrc\n\n"
-rm /home/$1/.bashrc
-ln -s /home/public/bashrc.sample /home/$1/.bashrc
-chown $1:$1 /home/$1/.bashrc
+rm /home/$username/.bashrc
+ln -s /home/public/bashrc.sample /home/$username/.bashrc
+chown $username:$username /home/$username/.bashrc
