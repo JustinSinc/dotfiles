@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# make sure user has prerequisitie programs
+if [ "$(which dcfldd)" = "dcfldd not found" ]; then
+	echo -e "Missing prerequisiting utility "dcfldd". Please install it and re-run the script."
+	exit 1
+elif [ -z "$(which dcfldd)" ]; then
+	echo -e "Missing prerequisiting utility "dcfldd". Please install it and re-run the script."
+	exit 1
+else
+	echo -e "dcfldd binary found on system. Running script."
+fi
+
 clear 
 
 # list connected devices
