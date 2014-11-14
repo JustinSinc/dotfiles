@@ -1,4 +1,5 @@
 #!/bin/bash
+
 clear 
 
 # list connected devices
