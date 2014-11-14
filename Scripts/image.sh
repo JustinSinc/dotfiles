@@ -25,7 +25,7 @@ else
 	echo -e "\nDevice/partition $sourceimage selected.\n"
 fi
 
-# hash input file or device
+# calculate checksum for source image
 echo -e "$sourceimage SHA512 checksum:"
 sudo sha512sum "$sourceimage" | cut -d " " -f1 > sourcehash.sha512
 cat sourcehash.sha512
@@ -65,12 +65,23 @@ else
 	echo -e "\nCreating image of $sourceimage and writing to $destinationimage. Using SHA512 hashing algorithm.\n\n"
 fi
 
+# create the image
 sudo dcfldd if="$sourceimage" of="$destinationimage"
 
 echo -e "\n\nImage $destinationimage created!\n" 
 
+# calculate sha512 checksum for destination image
 sudo sha512sum "$destinationimage" | cut -d " " -f1 > destinationhash.sha512
 
 echo -e "$destinationimage SHA512 checksum:\n$(cat destinationhash.sha512)\n"
 
-sudo diff -q sourcehash.sha512 destinationhash.sha512
+# if the checksums don't match, alert user
+filecompare=$(diff -q sourcehash.sha512 destinationhash.sha512)
+
+if [ -z "$filecompare" ]; then
+	echo -e "SHA512 checksums match; imaging completed successfully."
+	exit 0
+else
+	echo -e "SHA512 checksums don't match; perhaps image did not complete successfully?
+	exit 1
+fi
