@@ -1,20 +1,15 @@
 ! vim: set filetype=xdefaults :
-
 *background: #222222
-*foreground: #777777
-
+*foreground: #E5E4E2
 Xft*dpi:                96
 Xft*antialias:        true
 Xft*hinting:          full
-
 urxvt*background:       rgba:3800/3a00/3b00/ffff
-
 URxvt.transparent:	false
 URxvt.tintColor:	black
 URxvt.shading:	18 
  
 URxvt*colorUL: #86a2b0
-
 ! black
 URxvt*color0  : #2E3436
 URxvt*color8  : #555753
@@ -39,10 +34,8 @@ URxvt*color14 : #34E2E2
 ! white
 URxvt*color7  : #D3D7CF
 URxvt*color15 : #EEEEEC
-
 !------------------------------------------------------------------------------
 ! u r x v t
-
 URxvt*geometry:         	112x22  
 URxvt*font:            		xft:terminus:size=12
 URxvt*scrollBar:      		false
@@ -61,4 +54,3 @@ URxvt.clipboard.copycmd:  xclip -i -selection clipboard
 URxvt.clipboard.pastecmd: xclip -o -selection clipboard
 URxvt.underlineURLs:  True
 URxvt.matcher.button: 1 
-
