@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# make sure user has prerequisitie programs
+# make sure user has dcfldd installed
 if [ "$(which dcfldd)" = "dcfldd not found" ]; then
 	echo -e "Missing prerequisiting utility "dcfldd". Please install it and re-run the script."
 	exit 1
