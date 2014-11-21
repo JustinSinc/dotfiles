@@ -124,7 +124,7 @@ bindcode 233 exec /usr/sbin/raisebrightness
 bindcode 108 exec dmenu_run
 
 # lock and blank screen
-bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.jpg" && sleep 1 && xset dpms force off
+bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.png" && sleep 1 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
