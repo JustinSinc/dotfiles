@@ -1,26 +1,32 @@
-# i3 config file (v4)
-#
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
- 
-# Bind mod key
+# i3 config file
+# created by Sinc
+
+# assign windows key to $mod
 set $mod Mod4
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# open urxvt tmux session with $mod+enter
+bindsym $mod+Return exec attach
+
+# open urxvt with $mod+shift+enter
+bindsym $mod+Shift+Return exec urxvt
+
+# drag windows with $mod plus mouse
 floating_modifier $mod
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 
-# autostart programs
-exec --no-startup-id feh --bg-scale "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.jpg"
+# set wallpaper
+exec --no-startup-id feh --bg-scale "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.jpg"      
+
+# start usb automounting service             
 exec --no-startup-id devmon
-exec --no-startup-id /usr/bin/xcalib -d :0 /usr/share/color/icc/ThinkpadW510.icm
 
-# Hide window titles on startup
+# set wide-gamut color profile                                
+exec --no-startup-id /usr/bin/xcalib -d :0 "/usr/share/color/icc/ThinkpadW510.icm"     
+
+# hide window titles on startup
 for_window [class="^.*"] border pixel 0
- 
-# Font for window titles. Will also be used by the bar unless a different font
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 # hide window borders
 hide_edge_borders both
@@ -61,40 +67,37 @@ bindsym $mod+Shift+8 move container to workspace 8:misc
 bindsym $mod+Shift+9 move container to workspace 9:cmd
 bindsym $mod+Shift+0 move container to workspace 0:vm
 
-# multi-monitor support
-workspace "A:cmd" output xinerama-1
+# open applications in specific workspaces
+assign [class="Chromium"]       2:web
+assign [class="Firefox"]        2:web
+assign [class="Pale Moon"]      2:web
+assign [class="Hexchat"]        3:irc
+assign [class="Audacity"]       4:mp3
+assign [class="Quodlibet"]      4:mp3
+assign [class="Darktable"]      5:art
+assign [class="Gimp"]           5:art
+assign [class="Evince"]         6:pdf
+assign [class="Mumble"]         7:voip
+assign [class="Skype"]          7:voip
+assign [class="Deluge"]         8:misc
+assign [class="Wireshark"]      8:misc
+assign [class="PacketTracer6"]  8:misc
+assign [class="Steam"]          9:vid
+assign [class="Wine"]           9:vid
+assign [class="VirtualBox"]     0:vm
+assign [class="Virt-manager"]   0:vm
 
-# switch workspaces with XF86Forward and XF86Back
-bindcode 166 workspace prev
-bindcode 167 workspace next
+# open all web browsers in fullscreen mode
+for_window [class="Chromium"] fullscreen
+for_window [class="Firefox"] fullscreen
+for_window [class="Pale Moon"] fullscreen
 
-# open programs in specific workspaces
-assign [class="Chromium"] 2:web
-assign [class="Firefox"] 2:web
-assign [class="Hexchat"] 3:irc
-assign [class="Audacity"] 4:mp3
-assign [class=Quodlibet"] 4:mp3
-assign [class="Darktable"] 5:art
-assign [class="Gimp"] 5:art
-assign [class="Evince"] 6:pdf
-assign [class="Mumble"] 7:voip
-assign [class="Deluge"] 8:misc
-assign [class="Wireshark"] 8:misc
-assign [class="PacketTracer6"] 8:misc
-assign [class="Steam"] 9:vid
-assign [class="Wine"] 9:vid
-assign [class="VirtualBox"] 0:vm
-assign [class="Virt-manager"] 0:vm
-
-# execute programs
-bindsym $mod+Return exec attach
+# application keybinds
 bindsym $mod+c exec gcolor2
 bindsym $mod+d exec deluge
 bindsym $mod+e exec thunar
 bindsym $mod+g exec gimp
 bindsym $mod+h exec hexchat
-bindsym $mod+i bar mode toggle
-bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.png" && sleep 1 && xset dpms force off
 bindsym $mod+m exec quodlibet
 bindsym $mod+o exec libreoffice
 bindsym $mod+p exec darktable
@@ -108,23 +111,37 @@ bindsym $mod+Shift+v exec virtualbox
 bindsym $mod+w exec /usr/bin/chromium
 bindsym $mod+Shift+w exec wireshark
 bindcode 135 exec scribes
+
+# switch workspaces with thinkpad forward/back keys
+bindcode 166 workspace prev
+bindcode 167 workspace next
+
+# raise and lower brightness with thinkpad brightness keys
 bindcode 232 exec /usr/sbin/lowerbrightness
 bindcode 233 exec /usr/sbin/raisebrightness
+
+# open dmenu application menu
+bindcode 108 exec dmenu_run
+
+# lock and blank screen
+bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Cityscape.jpg" && sleep 1 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
  
- # control music
+# control music
 bindcode 171 exec quodlibet --next
 bindcode 172 exec quodlibet --play-pause
 bindcode 173 exec quodlibet --previous
 bindcode 174 exec quodlibet --stop
 
-# scrot via printscreen
-bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/ && scp -P 443 /home/sinc/Screenshots/$f root@justinsinkula.com:/var/www/justinsinkula.com/public_html/img/ && echo "http://justinsinkula.com/img/$f" | xclip -selection clipboard'
-bindcode 64+107 exec scrot -s '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
+# hide i3bar with $mod+i
+bindsym $mod+i bar mode toggle
+
+# scrot with prtsc key
+bindcode 107 exec scrot -s '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
   
 # kill focused window
 bindsym $mod+q kill
@@ -137,34 +154,32 @@ bindsym $mod+Shift+space floating toggle
  
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
- 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
- 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        # Pressing left will shrink the window's width.
-        # Pressing right will grow the window's width.
-        # Pressing up will shrink the window's height.
-        # Pressing down will grow the window's height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
- 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
- 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-  
+
+# change window splitting keybinds; $mod+| for horizontal, $mod+- for vertical
+bindcode $mod+20 split v            
+bindcode $mod+51 split h            
+
+# resize windows
 bindsym $mod+r mode "resize"
+mode "resize" {
+    # press left or j to shrink window width
+    # press right or k to grow window width
+    # press up or l to shrink window height
+    # press down or ; to grow window height
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+ 
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+ 
+    # exit resize mode with escape key
+    bindsym Escape mode "default"
+}
  
 # start i3bar
 bar {
@@ -173,8 +188,8 @@ bar {
 		background #383a3b
 		statusline #888888
 	}
-        font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-        font pango:Terminus 6
+    font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font pango:Terminus 6
 	tray_output LVDS-0
 	status_command i3status
 }
