@@ -25,6 +25,9 @@ exec --no-startup-id devmon
 # set wide-gamut color profile                                
 exec --no-startup-id /usr/bin/xcalib -d :0 "/usr/share/color/icc/ThinkpadW510.icm"     
 
+# start pulseaudio
+exec --no-startup-id /usr/bin/start-pulseaudio-x11
+
 # hide window titles on startup
 for_window [class="^.*"] border pixel 0
 
@@ -93,6 +96,7 @@ for_window [class="Firefox"] fullscreen
 for_window [class="Pale Moon"] fullscreen
 
 # application keybinds
+bindsym $mod+a exec audacity
 bindsym $mod+c exec gcolor2
 bindsym $mod+d exec deluge
 bindsym $mod+e exec thunar
