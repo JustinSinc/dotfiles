@@ -15,8 +15,10 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-PROMPT='%~ %# '
+PROMPT='%m %~ %# '
 
+alias socks='urxvt -e ssh -D 1336 -p 443 root@192.184.82.89 & /usr/sbin/chromium --proxy-server="socks5://localhost:1336" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost"'
+alias tunnel='ssh -D 1336 -p 443 root@server'
 alias suspend='sudo systemctl suspend'
 alias shutdown='sudo systemctl poweroff'
 alias reboot='sudo systemctl reboot'
@@ -25,15 +27,18 @@ alias vim="stty stop '' -ixoff ; vim"
 alias exiftool='/usr/bin/vendor_perl/exiftool'
 alias vpnon='sudo systemctl start openvpn@client'
 alias vpnoff='sudo systemctl stop openvpn@client'
-alias grep='grep -Hn --color=always'
 alias ls='ls --color=auto'
-alias mv='mv -i'
-alias rm='rm -i'
+alias mv='mv'
+alias rm='rm'
 alias mpc='wine ~/.local/share/wineprefixes/mpc/drive_c/Program\ Files\ (x86)/Media\ Player\ Classic/mpc-hc.exe'
 alias hostlist='sudo nmap -sn'
 alias virtualbox='sudo modprobe vboxdrv && virtualbox'
 alias mantaray='cd /media/Vagrant/mantaray && vagrant up && vagrant ssh -- -Y'
+alias scribes='scribes > /dev/null 2>&1'
 
 ttyctl -f
 
 export PULSE_LATENCY_MSEC=60
+export HOME=/home/sinc
+export PATH=/usr/lib/ccache/bin/:/usr/local/sbin:/usr/local/bin:/usr/bin:/opt/depot-tools-git:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/sinc/.gem/ruby/2.1.0/bin 
+export CCACHE_DIR=/media/ccache
