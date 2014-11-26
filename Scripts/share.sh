@@ -1,4 +1,5 @@
 #!/bin/bash
+# Script to share files on shell service
 
 # ask for user input
 echo "Please enter URL or IP of host"
