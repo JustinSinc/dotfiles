@@ -1,4 +1,5 @@
 #!/bin/bash
+# Set up basic simple stateful firewall; from https://wiki.archlinux.org/index.php/simple_stateful_firewall
 systemctl enable iptables
 systemctl start iptables
 iptables -N TCP
