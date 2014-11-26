@@ -1,4 +1,5 @@
 #!/bin/bash
+# Raise brightness on an Nvidia-GPU Thinkpad
 
 currentbrightness=`cat /sys/class/backlight/nv_backlight/brightness`
 raisedbrightness=$(( $currentbrightness + 5 ))
