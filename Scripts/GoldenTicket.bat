@@ -1,4 +1,4 @@
-rem Script to interactively generate Kerberos Golden Tickets
+rem Script to interactively generate Kerberos Golden Tickets.
 rem Requires mimikatz and volatility standalone executables in same directory, 
 rem as well as a memory dump from a Windows machine.
 
