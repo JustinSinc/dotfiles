@@ -1,4 +1,5 @@
 #!/bin/bash
+# Interactive user-adding script for basic shell service
 
 echo -e "\n\nPlease enter username:\n\n"
 
