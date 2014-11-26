@@ -1,4 +1,5 @@
 #!/bin/bash
+# Interactively create .7z archives from files or folders
 
 echo 'Enter the path of the file(s) or folder you would like to compress.'
 read tozip
