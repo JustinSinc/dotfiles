@@ -1,4 +1,5 @@
 #!/bin/bash
+# List all active hosts on the currently connected network.
 
 # clear screen
 clear
