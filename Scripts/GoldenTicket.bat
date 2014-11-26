@@ -1,3 +1,7 @@
+rem Script to interactively generate Kerberos Golden Tickets
+rem Requires mimikatz and volatility standalone executables in same directory, 
+rem as well as a memory dump from a Windows machine.
+
 @echo off
 cls
 echo "Deleting any previous files. Hit Ctrl-C to cancel."
