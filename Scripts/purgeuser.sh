@@ -1,4 +1,5 @@
 #!/bin/bash
+# Interactive user-deletion script for basic shell service
 
 echo -e "\n\nPlease enter username:\n\n"
 
