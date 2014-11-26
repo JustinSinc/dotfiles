@@ -1,5 +1,5 @@
 #!/bin/bash
-# Detect current network address, and scan for active hosts on the network
+# Perform full nmap scan on all active hosts on the network
 
 # clear screen
 clear
