@@ -1,4 +1,5 @@
 #!/bin/bash
+# Interactively create dump of a connected device
 
 # make sure user has dcfldd installed
 if [ "$(which dcfldd)" = "dcfldd not found" ]; then
