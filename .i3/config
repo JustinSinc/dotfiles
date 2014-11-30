@@ -105,7 +105,7 @@ bindsym $mod+h exec hexchat
 bindsym $mod+m exec quodlibet
 bindsym $mod+o exec libreoffice
 bindsym $mod+p exec darktable
-bindsym $mod+Shift+p exec packettracer
+bindsym $mod+Shift+p exec rawtherapee
 bindsym $mod+Shift+q exec xkill
 bindsym $mod+s exec skype
 bindsym $mod+Shift+s exec steam
