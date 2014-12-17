@@ -101,6 +101,7 @@ bindsym $mod+a exec audacity
 bindsym $mod+c exec gcolor2
 bindsym $mod+d exec deluge
 bindsym $mod+e exec thunar
+bindsym $mod+Shift+e exec keepass
 bindsym $mod+g exec gimp
 bindsym $mod+h exec hexchat
 bindsym $mod+m exec quodlibet
@@ -146,7 +147,7 @@ bindcode 174 exec quodlibet --stop
 bindsym $mod+i bar mode toggle
 
 # scrot with prtsc key
-bindsym Print --release exec scrot -s '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
+bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
   
 # kill focused window
 bindsym $mod+q kill
