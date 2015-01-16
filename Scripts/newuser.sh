@@ -17,8 +17,8 @@ passwd $username
 clear
 
 echo -e "\n\nSetting up Apache.\n\n"
-sed "s/%USER/$username/g" /etc/apache2/sites-available/users > /etc/apache2/sit$
-ln -s /etc/apache2/sites-available/$username /etc/apache2/sites-enabled/$userna$
+sed "s/%USER/$username/g" /etc/apache2/sites-available/users > /etc/apache2/sites-available/$username
+ln -s /etc/apache2/sites-available/$username /etc/apache2/sites-enabled/$username
 apdir="/var/log/apache2/$username/"
 mkdir $apdir
 touch "$apdir/access.log"
