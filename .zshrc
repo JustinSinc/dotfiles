@@ -9,16 +9,17 @@ unsetopt beep nomatch
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/sinc/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+autoload -U colors && colors
 
-PROMPT='%m %~ %# '
+autoload -U colors && colors
+PROMPT="%{$fg[white]%}%n%{$reset_color%} %{$fg[yellow]%}%~ %{$reset_color%}%
 
-alias socks='urxvt -e ssh -D 1336 -p 443 root@192.184.82.89 & /usr/sbin/chromium --proxy-server="socks5://localhost:1336" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost"'
-alias tunnel='ssh -D 1336 -p 443 root@server'
+alias tunnel='ssh -D 1336 -p 443 ramnode'
 alias suspend='sudo systemctl suspend'
 alias shutdown='sudo systemctl poweroff'
 alias reboot='sudo systemctl reboot'
@@ -28,13 +29,9 @@ alias exiftool='/usr/bin/vendor_perl/exiftool'
 alias vpnon='sudo systemctl start openvpn@client'
 alias vpnoff='sudo systemctl stop openvpn@client'
 alias ls='ls --color=auto'
-alias mv='mv'
-alias rm='rm'
 alias mpc='wine ~/.local/share/wineprefixes/mpc/drive_c/Program\ Files\ (x86)/Media\ Player\ Classic/mpc-hc.exe'
-alias hostlist='sudo nmap -sn'
 alias virtualbox='sudo modprobe vboxdrv && virtualbox'
-alias mantaray='cd /media/Vagrant/mantaray && vagrant up && vagrant ssh -- -Y'
-alias scribes='scribes > /dev/null 2>&1'
+alias mpv='primusrun mpv --hwdec=vdpau'
 
 ttyctl -f
 
