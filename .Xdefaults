@@ -1,56 +1,56 @@
-! vim: set filetype=xdefaults :
-*background: #222222
-*foreground: #E5E4E2
-Xft*dpi:                96
-Xft*antialias:        true
-Xft*hinting:          full
-urxvt*background:       rgba:3800/3a00/3b00/ffff
-URxvt.transparent:	false
-URxvt.tintColor:	black
-URxvt.shading:	18 
- 
-URxvt*colorUL: #86a2b0
-! black
-URxvt*color0  : #2E3436
-URxvt*color8  : #555753
-! red
-URxvt*color1  : #CC0000
-URxvt*color9  : #EF2929
-! green
-URxvt*color2  : #4E9A06
-URxvt*color10 : #8AE234
-! yellow
-URxvt*color3  : #C4A000
-URxvt*color11 : #FCE94F
-! blue
-URxvt*color4  : #3465A4
-URxvt*color12 : #729FCF
-! magenta
-URxvt*color5  : #75507B
-URxvt*color13 : #AD7FA8
-! cyan
-URxvt*color6  : #06989A
-URxvt*color14 : #34E2E2
-! white
-URxvt*color7  : #D3D7CF
-URxvt*color15 : #EEEEEC
-!------------------------------------------------------------------------------
-! u r x v t
-URxvt*geometry:         	112x22  
-URxvt*font:            		xft:terminus:size=12
-URxvt*scrollBar:      		false
-URxvt*scrollBar_right:      	true
-URxvt*scrollColor:        	#000000
-URxvt*fading:  			30
-URxvt.iso14755: False
-urxvt*perl-ext-common:      	default,matcher,clipboard,keyboard-select
-URxvt.url-launcher:   /usr/bin/chromium
-URxvt.keysym.M-u:     perl:url-select:select_next
-URxvt.keysym.M-Escape:perl:keyboard-select:activate
-URxvt.keysym.M-c:   perl:clipboard:copy
-URxvt.keysym.M-v:   perl:clipboard:paste
-URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
-URxvt.clipboard.copycmd:  xclip -i -selection clipboard
-URxvt.clipboard.pastecmd: xclip -o -selection clipboard
-URxvt.underlineURLs:  True
-URxvt.matcher.button: 1 
+!
+! ~/.Xdefaults
+!
+
+! urxvt
+
+urxvt.inheritPixmap:     true
+urxvt.reverseVideo:      false
+urxvt.tintColor:         #dfdfdf
+urxvt.shading:           60 !trans, 0=opaque
+urxvt.fading:            60 !term unfocus
+urxvt.font:              xft:terminus:size=16
+urxvt.scrollBar:         false
+urxvt.saveLines:         5500
+urxvt.termName:          rxvt
+urxvt.internalBorder:    0
+urxvt.cursorBlink:       false
+urxvt.tintColor:         #dfdfdf
+urxvt.cursorColor:       #dd9900
+urxvt.cursorColor2:      #000000
+urxvt.background:        #000000
+urxvt.foreground:        #ddccbb
+urxvt.colorBD:           #ffffff
+urxvt.colorIT:           #bbbbbb
+urxvt.colorUL:           #999999
+urxvt.underlineColor:    #999999
+
+! xterm
+
+xterm*faceName:          terminus:size=12
+xterm*geometry:          127x36
+xterm*boldMode:          true
+xterm*metaSendsEscape:   true
+xterm*background:        #292929
+xterm*foreground:        #ddccbb
+
+! Colors
+
+*background:   rgb:00/00/00
+*foreground:   rgb:a8/a8/a8
+*color0:       rgb:00/00/00
+*color1:       rgb:a8/00/00
+*color2:       rgb:00/a8/00
+*color3:       rgb:a8/54/00
+*color4:       rgb:00/00/a8
+*color5:       rgb:a8/00/a8
+*color6:       rgb:00/a8/a8
+*color7:       rgb:a8/a8/a8
+*color8:       rgb:54/50/54
+*color9:       rgb:f8/54/50
+*color10:      rgb:50/fc/50
+*color11:      rgb:f8/fc/50
+*color12:      rgb:50/54/f8
+*color13:      rgb:f8/54/f8
+*color14:      rgb:50/fc/f8
+*color15:      rgb:f8/fc/f8
