@@ -31,6 +31,56 @@ for_window [class="^.*"] border pixel 0
 # hide window borders
 hide_edge_borders both
 
+# enable gaps with multiple windows only
+smart_gaps on
+
+# enable borders if there are multiple windows
+smart_borders on
+
+# set default gaps
+gaps outer 0
+gaps inner 20
+
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - 
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+                                
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+        
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+        
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+        
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+        
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
 # create workspaces
 workspace "1:cmd" output LVDS1
 workspace "2:web" output LVDS1
@@ -68,7 +118,7 @@ bindsym $mod+Shift+9 move container to workspace 9:cmd
 bindsym $mod+Shift+0 move container to workspace 0:vm
 
 # open applications in specific workspaces
-assign [class="Chrome"]		2:web
+assign [class="Chrome"]		    2:web
 assign [class="Chromium"]       2:web
 assign [class="Firefox"]        2:web
 assign [class="Pale Moon"]      2:web
@@ -81,7 +131,7 @@ assign [class="Rawtherapee"]	5:art
 assign [class="Evince"]         6:pdf
 assign [class="Mumble"]         7:voip
 assign [class="Skype"]          7:voip
-assign [class="Qbittorrent"]         8:misc
+assign [class="Qbittorrent"]    8:misc
 assign [class="Wireshark"]      8:misc
 assign [class="PacketTracer6"]  8:misc
 assign [class="Steam"]          9:vid
@@ -139,7 +189,7 @@ bindcode 174 exec quodlibet --stop
 # hide i3bar with $mod+i
 bindsym $mod+i bar mode toggle
 
-# scrot with prtsc key
+# scrot with prtscr key
 bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
   
 # kill focused window
@@ -182,13 +232,21 @@ mode "resize" {
  
 # start i3bar
 bar {
+	height 20
 	position top
-	colors {
-		background #383a3b
-		statusline #888888
-	}
+    strip_workspace_numbers yes
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-    font pango:Terminus 10
-	tray_output LVDS-0
-	status_command i3status
+    font pango:Terminus 16
+    tray_output LVDS-0
+    status_command i3status
+    colors {
+		border             #ffffff
+		background         #383a3b
+		separator          #222222
+		statusline         #888888
+        focused_workspace  #1793D1 #1793D1 #ffffff
+        active_workspace   #333333 #333333 #888888
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace   #900000 #900000 #ffffff
+	}
 }
