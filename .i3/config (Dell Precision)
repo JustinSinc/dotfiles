@@ -23,6 +23,9 @@ exec --no-startup-id feh --bg-scale "/home/sinc/Dropbox/Public/Wallpapers/1080/S
 # launch pidgin
 exec --no-startup-id pidgin
 
+# launch mail client
+exec --no-startup-id thunderbird
+
 # start usb automounting service             
 exec --no-startup-id devmon
 
@@ -93,6 +96,8 @@ workspace "7:voip" output LVDS1
 workspace "8:misc" output LVDS1
 workspace "9:vid" output LVDS1
 workspace "0:vm" output LVDS1
+workspace "chat" output LVDS1
+workspace "mail" output LVDS1
 
 # switch to workspace
 bindsym $mod+1 workspace 1:cmd
@@ -105,6 +110,8 @@ bindsym $mod+7 workspace 7:voip
 bindsym $mod+8 workspace 8:misc
 bindsym $mod+9 workspace 9:vid
 bindsym $mod+0 workspace 0:vm
+bindsym $mod+minus workspace chat
+bindsym $mod+plus workspace mail
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1:cmd
@@ -119,7 +126,7 @@ bindsym $mod+Shift+9 move container to workspace 9:cmd
 bindsym $mod+Shift+0 move container to workspace 0:vm
 
 # open applications in specific workspaces
-assign [class="Chrome"]		    2:web
+assign [class="Chrome"]		2:web
 assign [class="Chromium"]       2:web
 assign [class="Firefox"]        2:web
 assign [class="Pale Moon"]      2:web
@@ -139,6 +146,8 @@ assign [class="Steam"]          9:vid
 assign [class="Wine"]           9:vid
 assign [class="VirtualBox"]     0:vm
 assign [class="Virt-manager"]   0:vm
+assign [class="Pidgin"]         chat
+assign [class="Thunderbird"]    mail
 
 # open dmenu launcher with mod+s
 bindsym $mod+s exec dmenu_run
@@ -157,10 +166,10 @@ bindsym $mod+o exec libreoffice
 bindsym $mod+p exec primusrun darktable
 bindsym $mod+Shift+p exec primusrun rawtherapee
 bindsym $mod+Shift+q exec xkill
-bindsym $mod+s exec skype
+bindsym $mod+Shift+t exec skype
 bindsym $mod+Shift+s exec primusrun steam
 bindsym $mod+u exec mpc
-bindsym $mod+v exec virt-manager
+bindsym $mod+v exec gksudo virt-manager
 bindsym $mod+Shift+v exec virtualbox
 bindsym $mod+w exec /usr/bin/chromium
 bindsym $mod+Shift+w exec wireshark
@@ -195,9 +204,6 @@ bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/S
   
 # kill focused window
 bindsym $mod+q kill
-
-# exit i3
-bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -246,7 +252,6 @@ mode "resize" {
     bindsym Down resize grow height 10 px or 10 ppt
     bindsym Up resize shrink height 10 px or 10 ppt
     bindsym Right resize grow width 10 px or 10 ppt
- 
     # exit resize mode with escape key
     bindsym Escape mode "default"
 }
@@ -254,20 +259,10 @@ mode "resize" {
 # start i3bar
 bar {
     height 20
-    position top
+	position top
     strip_workspace_numbers yes
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
     font pango:Terminus 16
     tray_output LVDS-0
     status_command i3status
-    colors {
-        border             #ffffff
-        background         #383a3b
-        separator          #222222
-        statusline         #888888
-        focused_workspace  #888888 #888888 #ffffff
-        active_workspace   #333333 #333333 #888888
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace   #900000 #900000 #ffffff
-	}
 }
