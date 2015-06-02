@@ -1,5 +1,6 @@
 # i3 config file
 # created by Sinc
+# this requires i3-gaps patches (https://github.com/Airblader/i3)
 
 # assign windows key to $mod
 set $mod Mod4
