@@ -3,6 +3,7 @@
 
 # assign windows key to $mod
 set $mod Mod4
+set $alt Mod1
 
 # open urxvt tmux session with $mod+enter
 bindsym $mod+Return exec attach
@@ -139,8 +140,8 @@ assign [class="Wine"]           9:vid
 assign [class="VirtualBox"]     0:vm
 assign [class="Virt-manager"]   0:vm
 
-# open all web browsers in fullscreen mode
-for_window [class="Chromium"] fullscreen
+# open dmenu launcher with mod+s
+bindsym $mod+s exec dmenu_run
 
 # open galculator in floating mode
 for_window [class="Galculator"] floating enable
@@ -173,7 +174,7 @@ bindcode 112 workspace prev
 bindcode 117 workspace next
 
 # lock and blank screen
-bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png" && sleep 1 && xset dpms force off
+bindsym $mod+l exec  && sleep 1 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
@@ -186,7 +187,7 @@ bindcode 172 exec quodlibet --play-pause
 bindcode 173 exec quodlibet --previous
 bindcode 174 exec quodlibet --stop
 
-# hide i3bar with $mod+i
+# hide i3bar with $mod+ii3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png"
 bindsym $mod+i bar mode toggle
 
 # scrot with prtscr key
@@ -194,7 +195,10 @@ bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/S
   
 # kill focused window
 bindsym $mod+q kill
- 
+
+# exit i3
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
  
@@ -207,6 +211,23 @@ bindsym $mod+space focus mode_toggle
 # change window splitting keybinds; $mod+| for horizontal, $mod+- for vertical
 bindcode $mod+20 split v            
 bindcode $mod+51 split h
+
+# alt-f4 to open system menu
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png"
+    bindsym e exec --no-startup-id i3-msg exit
+    bindsym s exec --no-startup-id systemctl suspend
+    bindsym h exec --no-startup-id systemctl hibernate
+    bindsym r exec --no-startup-id systemctl restart
+    bindsym Shift+s exec --no-startup-id systemctl shutdown
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $alt+F4 mode "$mode_system"
 
 # resize windows
 bindsym $mod+r mode "resize"
@@ -229,10 +250,10 @@ mode "resize" {
     # exit resize mode with escape key
     bindsym Escape mode "default"
 }
- 
+
 # start i3bar
 bar {
-	height 20
+    height 20
 	position top
     strip_workspace_numbers yes
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -240,11 +261,11 @@ bar {
     tray_output LVDS-0
     status_command i3status
     colors {
-		border             #ffffff
-		background         #383a3b
-		separator          #222222
-		statusline         #888888
-        focused_workspace  #1793D1 #1793D1 #ffffff
+        border             #ffffff
+        background         #383a3b
+        separator          #222222
+        statusline         #888888
+        focused_workspace  #888888 #888888 #ffffff
         active_workspace   #333333 #333333 #888888
         inactive_workspace #333333 #333333 #888888
         urgent_workspace   #900000 #900000 #ffffff
