@@ -174,7 +174,7 @@ bindcode 112 workspace prev
 bindcode 117 workspace next
 
 # lock and blank screen
-bindsym $mod+l exec  && sleep 1 && xset dpms force off
+bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png" && sleep 1 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
@@ -187,7 +187,7 @@ bindcode 172 exec quodlibet --play-pause
 bindcode 173 exec quodlibet --previous
 bindcode 174 exec quodlibet --stop
 
-# hide i3bar with $mod+ii3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png"
+# hide i3bar with $mod+i
 bindsym $mod+i bar mode toggle
 
 # scrot with prtscr key
@@ -254,7 +254,7 @@ mode "resize" {
 # start i3bar
 bar {
     height 20
-	position top
+    position top
     strip_workspace_numbers yes
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
     font pango:Terminus 16
