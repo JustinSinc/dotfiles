@@ -6,7 +6,7 @@
 set $mod Mod4
 set $alt Mod1
 
-# open urxvt tmux session with $mod+enter
+# open urxvt tmux session with $mod+enter (requires https://github.com/JustinSinc/dotfiles/blob/master/Scripts/attach.sh)
 bindsym $mod+Return exec attach
 
 # open urxvt with $mod+shift+enter
