@@ -16,7 +16,7 @@ nnoremap <S-Tab> <ESC>:tabp<CR>
 " Strip trailing white space with \t
 nnoremap <leader>t <ESC>:%s/\s\+$//<CR>
 " Strip blank lines with \d
-" nnoremap <leader>d <ESC>:g/^$/d<CR>
+nnoremap <leader>d <ESC>:g/^$/d<CR>
 " Strip commented lines with \c
 nnoremap <leader>c <ESC>:g/^#/d<CR>
 " Switch spellcheck with \s
