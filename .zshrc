@@ -16,7 +16,6 @@ compinit
 # End of lines added by compinstall
 autoload -U colors && colors
 
-autoload -U colors && colors
 PROMPT="%{$fg[white]%}%n%{$reset_color%} %{$fg[yellow]%}%~ %{$reset_color%}%
 
 alias tunnel='ssh -D 1336 -p 443 ramnode'
@@ -29,7 +28,6 @@ alias exiftool='/usr/bin/vendor_perl/exiftool'
 alias vpnon='sudo systemctl start openvpn@client'
 alias vpnoff='sudo systemctl stop openvpn@client'
 alias ls='ls --color=auto'
-alias mpc='wine ~/.local/share/wineprefixes/mpc/drive_c/Program\ Files\ (x86)/Media\ Player\ Classic/mpc-hc.exe'
 alias virtualbox='sudo modprobe vboxdrv && virtualbox'
 alias mpv='primusrun mpv --hwdec=vdpau'
 
