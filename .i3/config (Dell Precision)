@@ -2,6 +2,8 @@
 # created by Sinc
 # this requires i3-gaps patches (https://github.com/Airblader/i3)
 
+set $wallpaper "~/Dropbox/Public/Wallpapers/1080/Stripes.jpg"
+
 # assign windows key to $mod
 set $mod Mod4
 
@@ -21,7 +23,7 @@ floating_modifier $mod
 bindsym $mod+Shift+r reload
 
 # set wallpaper
-exec --no-startup-id feh --bg-scale "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.jpg"
+exec --no-startup-id feh --bg-scale $wallpaper
 
 # launch pidgin
 exec --no-startup-id pidgin
@@ -186,7 +188,7 @@ bindcode 112 workspace prev
 bindcode 117 workspace next
 
 # lock and blank screen with $mod+l
-bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png" && sleep 1 && xset dpms force off
+bindsym $mod+l exec i3lock -i $wallpaper && sleep 1 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
@@ -203,7 +205,7 @@ bindcode 174 exec quodlibet --stop
 bindsym $mod+i bar mode toggle
 
 # scrot with PrtScr key
-bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
+bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/Screenshots/'
   
 # kill focused window with $mod+q
 bindsym $mod+q kill
@@ -224,7 +226,7 @@ bindcode $mod+51 split h
 # alt-f4 to open system menu
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png"
+    bindsym l exec --no-startup-id i3lock -i $wallpaper
     bindsym e exec --no-startup-id i3-msg exit
     bindsym s exec --no-startup-id systemctl suspend
     bindsym h exec --no-startup-id systemctl hibernate
