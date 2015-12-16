@@ -2,8 +2,6 @@
 # created by Sinc
 # this requires i3-gaps patches (https://github.com/Airblader/i3)
 
-set $wallpaper "~/Dropbox/Public/Wallpapers/1080/Stripes.jpg"
-
 # assign windows key to $mod
 set $mod Mod4
 
@@ -22,16 +20,16 @@ floating_modifier $mod
 # reload the configuration file with $mod-r
 bindsym $mod+Shift+r reload
 
+# disable trackpad while typing
+exec --no-startup-id syndaemon -i .25
+
 # set wallpaper
-exec --no-startup-id feh --bg-scale $wallpaper
+exec --no-startup-id feh --bg-scale /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.jpg
 
 # launch pidgin
 exec --no-startup-id pidgin
 
-# launch mail client
-exec --no-startup-id thunderbird
-
-# start usb automounting service             
+# start usb automounting service
 exec --no-startup-id devmon
 
 # hide window titles on startup
@@ -48,9 +46,9 @@ smart_borders on
 
 # set default gaps
 gaps outer 0
-gaps inner 20
+gaps inner 3
 
-# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - 
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / -
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -63,16 +61,16 @@ mode "$mode_gaps" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-                                
+
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
         bindsym 0     gaps inner current set 0
-        
+
         bindsym Shift+plus  gaps inner all plus 5
         bindsym Shift+minus gaps inner all minus 5
         bindsym Shift+0     gaps inner all set 0
-        
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -81,11 +79,11 @@ mode "$mode_gaps_outer" {
         bindsym plus gaps outer current plus 5
         bindsym minus gaps outer current minus 5
         bindsym 0     gaps outer current set 0
-        
+
         bindsym Shift+plus  gaps outer all plus 5
         bindsym Shift+minus gaps outer all minus 5
         bindsym Shift+0     gaps outer all set 0
-        
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -131,8 +129,8 @@ bindsym $mod+Shift+9 move container to workspace 9:cmd
 bindsym $mod+Shift+0 move container to workspace 0:vm
 
 # open applications in specific workspaces
-assign [class="Chrome"]		2:web
-assign [class="Chromium"]       2:web
+assign [class="google-chrome"]	2:web
+assign [class="chromium"]       2:web
 assign [class="Firefox"]        2:web
 assign [class="Pale Moon"]      2:web
 assign [class="Hexchat"]        3:irc
@@ -162,22 +160,24 @@ for_window [class="Galculator"] floating enable
 
 # application keybinds
 bindsym $mod+a exec audacity
+bindsym $mod+c exec gcolor2
 bindsym $mod+d exec qbittorrent
 bindsym $mod+e exec pcmanfm
-bindsym $mod+g exec primusrun gimp
+bindsym $mod+g exec gimp
 bindsym $mod+h exec hexchat
 bindsym $mod+m exec quodlibet
 bindsym $mod+o exec libreoffice
-bindsym $mod+p exec primusrun darktable
-bindsym $mod+Shift+p exec primusrun rawtherapee
+bindsym $mod+p exec darktable
+bindsym $mod+Shift+p exec rawtherapee
 bindsym $mod+Shift+q exec xkill
+bindsym $mod+t exec mumble
 bindsym $mod+Shift+t exec skype
-bindsym $mod+Shift+s exec primusrun steam
+bindsym $mod+Shift+s exec steam
 bindsym $mod+u exec mpc
 bindsym $mod+v exec gksudo virt-manager
 bindsym $mod+Shift+v exec virtualbox
-bindsym $mod+w exec /usr/bin/chromium
-bindsym $mod+Shift+w exec wireshark
+bindsym $mod+w exec GTK_THEME=/usr/share/themes/FlatStudioDark/gtk-3.0/gtk.css google-chrome-stable
+bindsym $mod+Shift+w exec GTK_THEME=/usr/share/themes/FlatStudioLight/gtk-3.0/gtk.css wireshark-gtk
 bindsym $mod+Shift+m exec thunderbird
 
 # open calculator with Calc key
@@ -188,13 +188,13 @@ bindcode 112 workspace prev
 bindcode 117 workspace next
 
 # lock and blank screen with $mod+l
-bindsym $mod+l exec i3lock -i $wallpaper && sleep 1 && xset dpms force off
+bindsym $mod+l exec i3lock -i /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png && sleep 1 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
- 
+
 # control music
 bindcode 171 exec quodlibet --next
 bindcode 172 exec quodlibet --play-pause
@@ -206,13 +206,13 @@ bindsym $mod+i bar mode toggle
 
 # scrot with PrtScr key
 bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/Screenshots/'
-  
+
 # kill focused window with $mod+q
 bindsym $mod+q kill
 
 # enter fullscreen mode for the focused container with $mod+f
 bindsym $mod+f fullscreen
- 
+
 # change focus between tiling / floating windows with $mod+space
 bindsym $mod+space focus mode_toggle
 
@@ -220,7 +220,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+Shift+space floating toggle
 
 # change window splitting keybinds; $mod+| for horizontal, $mod+- for vertical
-bindcode $mod+20 split v            
+bindcode $mod+20 split v
 bindcode $mod+51 split h
 
 # alt-f4 to open system menu
@@ -251,7 +251,7 @@ mode "resize" {
     bindsym k resize grow height 10 px or 10 ppt
     bindsym l resize shrink height 10 px or 10 ppt
     bindsym semicolon resize grow width 10 px or 10 ppt
- 
+
     # same bindings, but for the arrow keys
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
@@ -263,11 +263,21 @@ mode "resize" {
 
 # start i3bar
 bar {
-    height 20
+  height 20
 	position top
     strip_workspace_numbers yes
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-    font pango:Terminus 16
+    font pango:Terminus 12
     tray_output LVDS-0
     status_command i3status
+  colors {
+    separator #dc322f
+    background #002b36
+    statusline #268bd2
+  }
 }
+
+client.focused #859900 #859900 #fdf6e3 #859900
+client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #073642 #073642 #93a1a1 #586e75
+client.urgent #d33682 #d33682 #fdf6e3 #dc322f
