@@ -20,11 +20,17 @@ floating_modifier $mod
 # reload the configuration file with $mod-r
 bindsym $mod+Shift+r reload
 
+# disable CapsLock
+exec --no-startup-id setxkbmap -option caps:none
+
 # disable trackpad while typing
 exec --no-startup-id syndaemon -i .25
 
+# start autossh tunnel
+exec --no-startup-id autossh -M 2050 -f -N -D 1336 gate
+
 # set wallpaper
-exec --no-startup-id feh --bg-scale /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.jpg
+exec --no-startup-id bgs /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.jpg
 
 # launch pidgin
 exec --no-startup-id pidgin
@@ -46,7 +52,7 @@ smart_borders on
 
 # set default gaps
 gaps outer 0
-gaps inner 3
+gaps inner 0
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / -
 set $mode_gaps Gaps: (o) outer, (i) inner
@@ -163,7 +169,7 @@ bindsym $mod+a exec audacity
 bindsym $mod+c exec gcolor2
 bindsym $mod+d exec qbittorrent
 bindsym $mod+e exec pcmanfm
-bindsym $mod+g exec gimp
+bindsym $mod+g exec gimp-2.9
 bindsym $mod+h exec hexchat
 bindsym $mod+m exec quodlibet
 bindsym $mod+o exec libreoffice
@@ -173,15 +179,18 @@ bindsym $mod+Shift+q exec xkill
 bindsym $mod+t exec mumble
 bindsym $mod+Shift+t exec skype
 bindsym $mod+Shift+s exec steam
-bindsym $mod+u exec mpc
+bindsym $mod+u exec wine "/home/sinc/.wine/drive_c/MPC/mpc-hc.exe"
 bindsym $mod+v exec gksudo virt-manager
 bindsym $mod+Shift+v exec virtualbox
-bindsym $mod+w exec GTK_THEME=/usr/share/themes/FlatStudioDark/gtk-3.0/gtk.css google-chrome-stable
+bindsym $mod+w exec GTK_THEME=/usr/share/themes/FlatStudioDark/gtk-3.0/gtk.css google-chrome-beta
 bindsym $mod+Shift+w exec GTK_THEME=/usr/share/themes/FlatStudioLight/gtk-3.0/gtk.css wireshark-gtk
 bindsym $mod+Shift+m exec thunderbird
 
 # open calculator with Calc key
 bindcode 148 exec galculator
+
+# open scite with CapsLock
+bindcode 66 exec scite
 
 # switch workspaces with PgUp/PgDown keys
 bindcode 112 workspace prev
@@ -271,7 +280,7 @@ bar {
     tray_output LVDS-0
     status_command i3status
   colors {
-    separator #dc322f
+    separator #073642
     background #002b36
     statusline #268bd2
   }
