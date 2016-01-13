@@ -1,0 +1,42 @@
+# Sample mildly hardened SSH daemon config
+
+# Listen on this port (non-standard ports make management a mess)
+Port 22
+
+# Restrict key and cipher types to more secure options
+Protocol 2
+ServerKeyBits 2048
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Only allow users in group ssh-user to connect
+AllowGroups sshuser
+PermitRootLogin no
+UsePAM yes
+
+# Other security settings
+UsePrivilegeSeparation yes
+KeyRegenerationInterval 3600
+PermitEmptyPasswords no
+StrictModes yes
+RSAAuthentication yes
+PubkeyAuthentication yes
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+
+# No need for X11 forwarding
+X11Forwarding no
+X11DisplayOffset 10
+
+# Miscellaneous settings
+LogLevel INFO
+SyslogFacility AUTH
+LoginGraceTime 120
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
