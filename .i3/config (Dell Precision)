@@ -198,7 +198,7 @@ bindcode 112 workspace prev
 bindcode 117 workspace next
 
 # lock and blank screen with $mod+l
-bindsym $mod+l exec i3lock -I 15 -f -e -u -r 25 -s 4
+bindsym $mod+l exec i3lock -I 15 -f -e -u -r 25 -s 4 && sleep 10 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
