@@ -1,6 +1,6 @@
 # i3 config file
 # created by Sinc
-# this requires i3-gaps patches (https://github.com/Airblader/i3)
+# this requires i3-gaps patches (https://github.com/Airblader/i3) and i3-blur (https://github.com/karulont/i3lock-blur)
 
 # assign windows key to $mod
 set $mod Mod4
@@ -12,7 +12,7 @@ set $alt Mod1
 bindsym $mod+Return exec attach
 
 # open urxvt with $mod+shift+enter
-bindsym $mod+Shift+Return exec urxvt
+bindsym $mod+Shift+Return exec st
 
 # drag windows with $mod plus mouse
 floating_modifier $mod
@@ -33,7 +33,7 @@ exec --no-startup-id autossh -M 2050 -f -N -D 1336 gate
 exec --no-startup-id bgs /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.jpg
 
 # launch pidgin
-exec --no-startup-id pidgin
+exec --no-startup-id firejail --seccomp pidgin
 
 # start usb automounting service
 exec --no-startup-id devmon
@@ -167,24 +167,25 @@ for_window [class="Galculator"] floating enable
 # application keybinds
 bindsym $mod+a exec audacity
 bindsym $mod+c exec gcolor2
-bindsym $mod+d exec qbittorrent
+bindsym $mod+Shift+c exec packettracer
+bindsym $mod+d exec firejail --seccomp qbittorrent
 bindsym $mod+e exec pcmanfm
 bindsym $mod+g exec gimp-2.9
-bindsym $mod+h exec hexchat
+bindsym $mod+h exec firejail --seccomp hexchat
 bindsym $mod+m exec quodlibet
 bindsym $mod+o exec libreoffice
 bindsym $mod+p exec darktable
 bindsym $mod+Shift+p exec rawtherapee
 bindsym $mod+Shift+q exec xkill
 bindsym $mod+t exec mumble
-bindsym $mod+Shift+t exec skype
-bindsym $mod+Shift+s exec steam
+bindsym $mod+Shift+t exec firejail --seccomp skype
+bindsym $mod+Shift+s exec firejail --seccomp steam
 bindsym $mod+u exec wine "/home/sinc/.wine/drive_c/MPC/mpc-hc.exe"
 bindsym $mod+v exec gksudo virt-manager
 bindsym $mod+Shift+v exec virtualbox
-bindsym $mod+w exec GTK_THEME=/usr/share/themes/FlatStudioDark/gtk-3.0/gtk.css google-chrome-beta
+bindsym $mod+w exec GTK_THEME=/usr/share/themes/FlatStudioDark/gtk-3.0/gtk.css firefox
 bindsym $mod+Shift+w exec GTK_THEME=/usr/share/themes/FlatStudioLight/gtk-3.0/gtk.css wireshark-gtk
-bindsym $mod+Shift+m exec thunderbird
+bindsym $mod+Shift+m exec firejail --seccomp thunderbird
 
 # open calculator with Calc key
 bindcode 148 exec galculator
@@ -197,7 +198,7 @@ bindcode 112 workspace prev
 bindcode 117 workspace next
 
 # lock and blank screen with $mod+l
-bindsym $mod+l exec i3lock -i /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.png && sleep 1 && xset dpms force off
+bindsym $mod+l exec i3lock -I 15 -f -e -u -r 25 -s 4
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
