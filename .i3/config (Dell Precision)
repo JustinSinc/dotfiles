@@ -1,6 +1,6 @@
 # i3 config file
 # created by Sinc
-# this requires i3-gaps patches (https://github.com/Airblader/i3) and i3-blur (https://github.com/karulont/i3lock-blur)
+# this requires i3-gaps patches (https://github.com/Airblader/i3)
 
 # assign windows key to $mod
 set $mod Mod4
@@ -186,6 +186,7 @@ bindsym $mod+Shift+v exec virtualbox
 bindsym $mod+w exec GTK_THEME=/usr/share/themes/FlatStudioDark/gtk-3.0/gtk.css firefox
 bindsym $mod+Shift+w exec GTK_THEME=/usr/share/themes/FlatStudioLight/gtk-3.0/gtk.css wireshark-gtk
 bindsym $mod+Shift+m exec firejail --seccomp thunderbird
+bindsym $mod+z exec muss
 
 # open calculator with Calc key
 bindcode 148 exec galculator
@@ -206,10 +207,10 @@ bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # control music
-bindcode 171 exec quodlibet --next
-bindcode 172 exec quodlibet --play-pause
-bindcode 173 exec quodlibet --previous
-bindcode 174 exec quodlibet --stop
+bindcode 171 exec mpc next
+bindcode 172 exec mpc toggle
+bindcode 173 exec mpc prev
+bindcode 174 exec mpc stop
 
 # hide i3bar with $mod+i
 bindsym $mod+i bar mode toggle
