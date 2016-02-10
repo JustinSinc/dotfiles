@@ -1,14 +1,23 @@
 /* See LICENSE file for copyright and license details. */
-
 /*
  * appearance
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char font[] = "Terminus:pixelsize=14:antialias=true:autohint=true";
-static int borderpx = 0;
+static char font[] = "Meslo LG S DZ:pixelsize=14:antialias=true:autohint=false";
+static int borderpx = 2;
+
+/*
+ * What program is execed by st depends of these precedence rules:
+ * 1: program passed with -e
+ * 2: utmp option
+ * 3: SHELL environment variable
+ * 4: value of shell in /etc/passwd
+ * 5: value of shell in config.h
+ */
 static char shell[] = "/bin/zsh";
 static char *utmp = NULL;
+static char stty_args[] = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /* identification sequence returned in DA and DECID */
 static char vtiden[] = "\033[?6c";
@@ -29,7 +38,7 @@ static unsigned int doubleclicktimeout = 300;
 static unsigned int tripleclicktimeout = 600;
 
 /* alt screens */
-static bool allowaltscreen = true;
+static int allowaltscreen = 1;
 
 /* frames per second st should at maximum draw to the screen */
 static unsigned int xfps = 120;
@@ -42,53 +51,67 @@ static unsigned int actionfps = 30;
 static unsigned int blinktimeout = 800;
 
 /*
+ * thickness of underline and bar cursors
+ */
+static unsigned int cursorthickness = 2;
+
+/*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
  * it
  */
 static int bellvolume = 0;
 
-/* TERM value */
-static char termname[] = "st-256color";
+/* default TERM value */
+static char termname[] = "xterm-256color";
 
 static unsigned int tabspaces = 8;
 
-
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
-	"#383A3B",
-	"#CC0000",
-	"#4E9A06",
-	"#C4A000",
-	"#3465A4",
-	"#75507B",
-	"#06989A",
-	"#D3D7CF",
-
-	/* 8 bright colors */
-	"#383A3B",
-	"#EF2929",
-	"#8AE234",
-	"#FCE94F",
-	"#729FCF",
-	"#AD7FA8",
-	"#34E2E2",
-	"#EEEEEC",
-
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
+	/* solarized dark */
+	"#073642",  /*  0: black    */
+	"#dc322f",  /*  1: red      */
+	"#859900",  /*  2: green    */
+	"#b58900",  /*  3: yellow   */
+	"#268bd2",  /*  4: blue     */
+	"#d33682",  /*  5: magenta  */
+	"#2aa198",  /*  6: cyan     */
+	"#eee8d5",  /*  7: white    */
+	"#002b36",  /*  8: brblack  */
+	"#cb4b16",  /*  9: brred    */
+	"#586e75",  /* 10: brgreen  */
+	"#657b83",  /* 11: bryellow */
+	"#839496",  /* 12: brblue   */
+	"#6c71c4",  /* 13: brmagenta*/
+	"#93a1a1",  /* 14: brcyan   */
+	"#fdf6e3",  /* 15: brwhite  */
 };
 
 
 /*
  * Default colors (colorname index)
- * foreground, background, cursor
+ * foreground, background, cursor, reverse cursor
  */
-static unsigned int defaultfg = 7;
-static unsigned int defaultbg = 0;
-static unsigned int defaultcs = 256;
+static unsigned int defaultfg = 12;
+static unsigned int defaultbg = 8;
+static unsigned int defaultcs = 14;
+static unsigned int defaultrcs = 15;
+
+/*
+ * Default shape of cursor
+ * 2: Block ("â")
+ * 4: Underline ("_")
+ * 6: Bar ("|")
+ * 7: Snowman ("â")
+ */
+static unsigned int cursorshape = 2;
+
+/*
+ * Default colour and shape of the mouse cursor
+ */
+static unsigned int mouseshape = XC_xterm;
+static unsigned int mousefg = 7;
+static unsigned int mousebg = 0;
 
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
@@ -98,9 +121,11 @@ static unsigned int defaultcs = 256;
 static unsigned int defaultitalic = 11;
 static unsigned int defaultunderline = 7;
 
-/* Internal mouse shortcuts. */
-/* Beware that overloading Button1 will disable the selection. */
-static Mousekey mshortcuts[] = {
+/*
+ * Internal mouse shortcuts.
+ * Beware that overloading Button1 will disable the selection.
+ */
+static MouseShortcut mshortcuts[] = {
 	/* button               mask            string */
 	{ Button4,              XK_ANY_MOD,     "\031" },
 	{ Button5,              XK_ANY_MOD,     "\005" },
@@ -111,14 +136,17 @@ static Mousekey mshortcuts[] = {
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
+	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ MODKEY|ShiftMask,     XK_Prior,       xzoom,          {.i = +1} },
-	{ MODKEY|ShiftMask,     XK_Next,        xzoom,          {.i = -1} },
-	{ MODKEY|ShiftMask,     XK_Home,        xzoomreset,     {.i =  0} },
+	{ MODKEY|ShiftMask,     XK_Prior,       xzoom,          {.f = +1} },
+	{ MODKEY|ShiftMask,     XK_Next,        xzoom,          {.f = -1} },
+	{ MODKEY|ShiftMask,     XK_Home,        xzoomreset,     {.f =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ MODKEY|ShiftMask,     XK_Insert,      clippaste,      {.i =  0} },
+	{ MODKEY|ShiftMask,     XK_C,           clipcopy,       {.i =  0} },
+	{ MODKEY|ShiftMask,     XK_V,           clippaste,      {.i =  0} },
 	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
 };
 
@@ -159,11 +187,17 @@ static KeySym mappedkeys[] = { -1 };
  */
 static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
 
-/* Override mouse-select while mask is active (when MODE_MOUSE is set).
+/*
+ * Override mouse-select while mask is active (when MODE_MOUSE is set).
  * Note that if you want to use ShiftMask with selmasks, set this to an other
- * modifier, set to 0 to not use it. */
+ * modifier, set to 0 to not use it.
+ */
 static uint forceselmod = ShiftMask;
 
+/*
+ * This is the huge key array which defines all compatibility to the Linux
+ * world. Please decide about changes wisely.
+ */
 static Key key[] = {
 	/* keysym           mask            string      appkey appcursor crlf */
 	{ XK_KP_Home,       ShiftMask,      "\033[2J",       0,   -1,    0},
@@ -203,7 +237,7 @@ static Key key[] = {
 	{ XK_KP_Delete,     ShiftMask,      "\033[2K",      -1,    0,    0},
 	{ XK_KP_Delete,     ShiftMask,      "\033[3;2~",    +1,    0,    0},
 	{ XK_KP_Delete,     XK_ANY_MOD,     "\033[P",       -1,    0,    0},
-	{ XK_KP_Delete,     XK_ANY_MOD,     "\177",         +1,    0,    0},
+	{ XK_KP_Delete,     XK_ANY_MOD,     "\033[3~",      +1,    0,    0},
 	{ XK_KP_Multiply,   XK_ANY_MOD,     "\033Oj",       +2,    0,    0},
 	{ XK_KP_Add,        XK_ANY_MOD,     "\033Ok",       +2,    0,    0},
 	{ XK_KP_Enter,      XK_ANY_MOD,     "\033OM",       +2,    0,    0},
@@ -258,7 +292,8 @@ static Key key[] = {
 	{ XK_Delete,        ShiftMask,      "\033[2K",      -1,    0,    0},
 	{ XK_Delete,        ShiftMask,      "\033[3;2~",    +1,    0,    0},
 	{ XK_Delete,        XK_ANY_MOD,     "\033[P",       -1,    0,    0},
-	{ XK_Delete,        XK_ANY_MOD,     "\177",         +1,    0,    0},
+	{ XK_Delete,        XK_ANY_MOD,     "\033[3~",      +1,    0,    0},
+	{ XK_BackSpace,     XK_NO_MOD,      "\177",          0,    0,    0},
 	{ XK_Home,          ShiftMask,      "\033[2J",       0,   -1,    0},
 	{ XK_Home,          ShiftMask,      "\033[1;2H",     0,   +1,    0},
 	{ XK_Home,          XK_ANY_MOD,     "\033[H",        0,   -1,    0},
@@ -372,4 +407,3 @@ static Key key[] = {
 static uint selmasks[] = {
 	[SEL_RECTANGULAR] = Mod1Mask,
 };
-
