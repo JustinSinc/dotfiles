@@ -1,6 +1,8 @@
 # i3 config file
 # created by Sinc
-# this requires i3-gaps patches (https://github.com/Airblader/i3)
+# this requires a modified version of i3 for the window gaps, and the i3-weather script to display weather conditions in i3-bar
+# i3-gaps (https://github.com/Airblader/i3)
+# i3-weather (https://github.com/calzoneman/i3-weather)
 
 # assign windows key to $mod
 set $mod Mod4
@@ -28,6 +30,9 @@ exec --no-startup-id syndaemon -i .25
 
 # start autossh tunnel
 exec --no-startup-id autossh -M 2050 -f -N -D 1336 gate
+
+# start mpd
+exec --no-startup-id mpd
 
 # set wallpaper
 exec --no-startup-id bgs /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.jpg
@@ -280,7 +285,7 @@ bar {
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
     font pango:Terminus 12
     tray_output LVDS-0
-    status_command i3status
+    status_command i3status | ~/.i3/weather.py --wrap-i3-status 12781854 --unit f --format " {city}, {region}: {text}, {temp}F "
   colors {
     separator #073642
     background #002b36
