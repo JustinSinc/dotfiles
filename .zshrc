@@ -28,7 +28,7 @@ alias clean='bleachbit --preset -c && sudo bleachbit --preset -c'
 alias vim="stty stop '' -ixoff ; vim"
 alias mpv='mpv --hwdec=vdpau'
 alias mpchc='wine "/home/sinc/.wine/drive_c/Program Files (x86)/MPC-HC/mpc-hc.exe"'
-alias syncmusic='sudo rsync -av -u -h --delete --no-perms --no-owner --no-group -e "ssh -p 443" --partial sinc@justinsinkula.com:/Music ~/Music'
+alias syncmusic='sudo rsync -av -u -h --delete --no-perms --no-owner --no-group -e "ssh -p 443" --partial sinc@justinsinkula.com:/Music ~/'
 alias games='ssh -t gate ssh games'
 alias subsonic='ssh -t gate ssh subsonic'
 alias mine='ssh -t gate ssh mine'
