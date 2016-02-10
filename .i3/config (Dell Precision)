@@ -1,8 +1,6 @@
 # i3 config file
 # created by Sinc
-# this requires a modified version of i3 for the window gaps, and the i3-weather script to display weather conditions in i3-bar
-# i3-gaps (https://github.com/Airblader/i3)
-# i3-weather (https://github.com/calzoneman/i3-weather)
+# this requires i3-gaps patches (https://github.com/Airblader/i3)
 
 # assign windows key to $mod
 set $mod Mod4
@@ -209,7 +207,7 @@ bindsym $mod+l exec i3lock -I 15 -f -e -u -r 25 -s 4 && sleep 10 && xset dpms fo
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioMute exec amixer -q set Master 0%
 
 # control music
 bindcode 171 exec mpc next
@@ -285,7 +283,7 @@ bar {
     font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
     font pango:Terminus 12
     tray_output LVDS-0
-    status_command i3status | ~/.i3/weather.py --wrap-i3-status 12781854 --unit f --format " {city}, {region}: {text}, {temp}F "
+    status_command i3status | ~/.i3/weather.py --wrap-i3-status 12781854 --unit f --format " {wind_chill}F and {text} "
   colors {
     separator #073642
     background #002b36
