@@ -6,13 +6,12 @@
 
 urxvt.inheritPixmap:     true
 urxvt.reverseVideo:      false
-urxvt.tintColor:         #dfdfdf
-urxvt.shading:           60 !trans, 0=opaque
+urxvt.shading:           0 !trans, 0=opaque
 urxvt.fading:            60 !term unfocus
-urxvt.font:              xft:terminus:size=16
+urxvt.font:              xft:Terminus:size=12
 urxvt.scrollBar:         false
 urxvt.saveLines:         5500
-urxvt.termName:          rxvt
+urxvt.termName:          screen-256color
 urxvt.internalBorder:    0
 urxvt.cursorBlink:       false
 urxvt.tintColor:         #dfdfdf
@@ -24,33 +23,13 @@ urxvt.colorBD:           #ffffff
 urxvt.colorIT:           #bbbbbb
 urxvt.colorUL:           #999999
 urxvt.underlineColor:    #999999
+URxvt*perl-ext-common:	default,matcher,clipboard
 
 ! xterm
 
-xterm*faceName:          terminus:size=12
+xterm*faceName:          Terminus:size=12
 xterm*geometry:          127x36
 xterm*boldMode:          true
 xterm*metaSendsEscape:   true
 xterm*background:        #292929
 xterm*foreground:        #ddccbb
-
-! Colors
-
-*background:   rgb:00/00/00
-*foreground:   rgb:a8/a8/a8
-*color0:       rgb:00/00/00
-*color1:       rgb:a8/00/00
-*color2:       rgb:00/a8/00
-*color3:       rgb:a8/54/00
-*color4:       rgb:00/00/a8
-*color5:       rgb:a8/00/a8
-*color6:       rgb:00/a8/a8
-*color7:       rgb:a8/a8/a8
-*color8:       rgb:54/50/54
-*color9:       rgb:f8/54/50
-*color10:      rgb:50/fc/50
-*color11:      rgb:f8/fc/50
-*color12:      rgb:50/54/f8
-*color13:      rgb:f8/54/f8
-*color14:      rgb:50/fc/f8
-*color15:      rgb:f8/fc/f8
