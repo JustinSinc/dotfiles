@@ -1,4 +1,4 @@
-# Path to your oh-my-zsh installation.
+# Path to oh-my-zsh installation.
 export ZSH=/usr/share/oh-my-zsh
 
 # Set history config
@@ -27,18 +27,11 @@ export PATH="/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/usr/games"
 # Source config file
 source $ZSH/oh-my-zsh.sh
 
-# You may need to manually set your language environment
+# Set language environment
 export LANG=en_US.UTF-8
 
 # Correct improperly entered commands
 eval "$(thefuck --alias nope)"
-
-# Preferred editor for local (vim) and remote (nano) sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
-else
-  export EDITOR='vim'
-fi
 
 # Enable command completion
 autoload -U compinit
@@ -49,6 +42,13 @@ zstyle ':completion:*' menu select
 
 # Find any new executables in path
 zstyle ':completion:*' rehash true
+
+# Preferred editor for local (vim) and remote (nano) sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nano'
+else
+  export EDITOR='vim'
+fi
 
 # Aliases
 alias vpnon='sudo systemctl start openvpn@lasciel'
