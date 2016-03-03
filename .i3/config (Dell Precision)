@@ -29,8 +29,9 @@ exec --no-startup-id syndaemon -i .25
 # start autossh tunnel
 exec --no-startup-id autossh -M 2050 -f -N -D 1336 gate
 
-# start mpd
+# start mpd with scrobbling
 exec --no-startup-id mpd
+exec --no-startup-id mpdas
 
 # set wallpaper
 exec --no-startup-id bgs /home/sinc/Dropbox/Public/Wallpapers/1080/Stripes.jpg
@@ -181,12 +182,13 @@ bindsym $mod+p exec darktable
 bindsym $mod+Shift+p exec rawtherapee
 bindsym $mod+Shift+q exec xkill
 bindsym $mod+t exec mumble
+bindsym $alt+space exec rofi -key-run alt+space
 bindsym $mod+Shift+t exec firejail --seccomp skype
 bindsym $mod+Shift+s exec firejail --seccomp steam
 bindsym $mod+u exec wine "/home/sinc/.wine/drive_c/MPC/mpc-hc.exe"
 bindsym $mod+v exec gksudo virt-manager
 bindsym $mod+Shift+v exec virtualbox
-bindsym $mod+w exec GTK_THEME=/usr/share/themes/FlatStudioDark/gtk-3.0/gtk.css firefox
+bindsym $mod+w exec google-chrome-beta
 bindsym $mod+Shift+w exec GTK_THEME=/usr/share/themes/FlatStudioLight/gtk-3.0/gtk.css wireshark-gtk
 bindsym $mod+Shift+m exec firejail --seccomp thunderbird
 bindsym $mod+z exec muss
@@ -202,7 +204,7 @@ bindcode 112 workspace prev
 bindcode 117 workspace next
 
 # lock and blank screen with $mod+l
-bindsym $mod+l exec i3lock -I 15 -f -e -u -r 25 -s 4 && sleep 10 && xset dpms force off
+bindsym $mod+l exec slock
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
@@ -220,6 +222,10 @@ bindsym $mod+i bar mode toggle
 
 # scrot with PrtScr key
 bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/Screenshots/'
+
+# take screenshots and upload to imgur (requires https://github.com/carnager/teiler)
+bindsym $mod+x exec teiler --quick fullscreen
+bindsym $mod+Shift+x exec teiler --quick area
 
 # kill focused window with $mod+q
 bindsym $mod+q kill
