@@ -56,6 +56,7 @@ alias vpnoff='sudo systemctl stop openvpn@lasciel'
 alias tunnel='pkill autossh; autossh -M 2050 -f -N -D 1336 gate'
 alias suspend='sudo systemctl suspend'
 alias shutdown='sudo systemctl poweroff'
+alias rec='LC_ALL=en_US.UTF-8 asciinema rec'
 alias clean='bleachbit --preset -c && sudo bleachbit --preset -c'
 alias vim="stty stop '' -ixoff ; vim"
 alias mpv='mpv --hwdec=vdpau'
