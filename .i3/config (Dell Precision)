@@ -191,7 +191,7 @@ bindsym $mod+Shift+v exec virtualbox
 bindsym $mod+w exec google-chrome-beta
 bindsym $mod+Shift+w exec GTK_THEME=/usr/share/themes/FlatStudioLight/gtk-3.0/gtk.css wireshark-gtk
 bindsym $mod+Shift+m exec firejail --seccomp thunderbird
-bindsym $mod+z exec muss
+bindsym $mod+z exec muss -a
 
 # open calculator with Calc key
 bindcode 148 exec galculator
