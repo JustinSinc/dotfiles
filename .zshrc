@@ -22,7 +22,7 @@ ENABLE_CORRECTION="true"
 plugins=(sudo tmux web-search history zsh-completions autojump common-aliases docker rand-quote)
 
 # Set path
-export PATH="/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/usr/games"
+export PATH="/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/bin/core_perl"
 
 # Source config file
 source $ZSH/oh-my-zsh.sh
@@ -61,8 +61,9 @@ alias clean='bleachbit --preset -c && sudo bleachbit --preset -c'
 alias vim="stty stop '' -ixoff ; vim"
 alias mpv='mpv --hwdec=vdpau'
 alias mpchc='wine "~/.wine/drive_c/Program Files (x86)/MPC-HC/mpc-hc.exe"'
-alias syncmusic='sudo rsync -av -u -h --ignore-existing --delete --no-perms --no-owner --no-group -e "ssh -p 443" --partial sinc@justinsinkula.com:/Music ~/'
-alias aptget='ssh -t gate "cd ~/ansible && ansible-playbook -f4 aptget.yml --ask-sudo-pass"'
+alias syncmusic='rsync -av -u -h --ignore-existing --delete --no-perms --no-owner --no-group -e "ssh -p 443" --partial sinc@justinsinkula.com:/Music ~/'
+alias ansible-aptget='ssh -t gate "cd ~/ansible && ansible-playbook -f4 aptget.yml --ask-sudo-pass"'
+alias ansible-ntp='ssh -t gate "cd ~/ansible && ansible-playbook -f4 ntp.yml --ask-sudo-pass"'
 alias update='sudo pacman -Syu'
 alias games='ssh -t gate ssh games'
 alias subsonic='ssh -t gate ssh subsonic'
