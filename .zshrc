@@ -1,5 +1,5 @@
 # Path to oh-my-zsh installation.
-export ZSH=/usr/share/oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set history config
 HISTFILE=~/.histfile
@@ -19,7 +19,8 @@ setopt completealiases
 ENABLE_CORRECTION="true"
 
 # Select which plugins to load
-plugins=(sudo tmux web-search history zsh-completions autojump common-aliases docker rand-quote)
+plugins=(sudo tmux web-search history zsh-completions autojump common-aliases 
+rand-quote systemd)
 
 # Set path
 export PATH="/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/bin/core_perl"
@@ -53,7 +54,6 @@ fi
 # Aliases
 alias vpnon='sudo systemctl start openvpn@lasciel'
 alias vpnoff='sudo systemctl stop openvpn@lasciel'
-alias tunnel='pkill autossh; autossh -M 2050 -f -N -D 1336 gate'
 alias suspend='sudo systemctl suspend'
 alias shutdown='sudo systemctl poweroff'
 alias rec='LC_ALL=en_US.UTF-8 asciinema rec'
@@ -61,27 +61,23 @@ alias clean='bleachbit --preset -c && sudo bleachbit --preset -c'
 alias vim="stty stop '' -ixoff ; vim"
 alias mpv='mpv --hwdec=vdpau'
 alias mpchc='wine "~/.wine/drive_c/Program Files (x86)/MPC-HC/mpc-hc.exe"'
-alias syncmusic='rsync -av -u -h --ignore-existing --delete --no-perms --no-owner --no-group -e "ssh -p 443" --partial sinc@justinsinkula.com:/Music ~/'
+alias syncmusic='rsync -av -u -h --ignore-existing --delete --no-perms --no-owner --no-group -e "ssh -p 443" --partial gate:/Music ~/'
 alias ansible-aptget='ssh -t gate "cd ~/ansible && ansible-playbook -f4 aptget.yml --ask-sudo-pass"'
 alias ansible-ntp='ssh -t gate "cd ~/ansible && ansible-playbook -f4 ntp.yml --ask-sudo-pass"'
 alias update='sudo pacman -Syu'
-alias games='ssh -t gate ssh games'
 alias subsonic='ssh -t gate ssh subsonic'
-alias mine='ssh -t gate ssh mine'
 alias intranet='ssh -t gate ssh intranet'
 alias virt1='ssh -t gate ssh virt1'
 alias virt2='ssh -t gate ssh virt2'
 alias virt3='ssh -t gate ssh virt3'
-alias bros='ssh -t gate ssh bros'
 alias utility='ssh -t gate ssh utility'
 alias seedhost='ssh -t gate ssh seedhost'
 alias vpn='ssh -t gate ssh vpn'
-alias wiki='ssh -t gate ssh wiki'
 alias dhcp='ssh -t gate ssh dhcp'
 alias storage='ssh -t gate ssh storage'
-alias steam='ssh -t gate ssh -t games sudo su - steam'
+alias share='ssh -t gate ssh share'
 alias gate='ssh gate'
 
 # Enable syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
