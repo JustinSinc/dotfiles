@@ -1,6 +1,9 @@
 # Path to oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
+# Disable auto-updates
+DISABLE_AUTO_UPDATE=true
+
 # Set history config
 HISTFILE=~/.histfile
 HISTSIZE=1000
