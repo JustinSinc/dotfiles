@@ -18,6 +18,10 @@ autoload -Uz compinit && compinit
 
 PROMPT="%{$fg[white]%}%n%\%{$fg[blue]%}@%{$reset_color%}%{$fg[white]%}%m%{$reset_color%} %{$fg[yellow]%}%~ %{$reset_color%}%"
 
+# Set up Go environment
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 # Aliases
 alias ls='ls --color'
 alias vim="stty stop '' -ixoff ; vim"
