@@ -34,6 +34,10 @@ source $ZSH/oh-my-zsh.sh
 # Set language environment
 export LANG=en_US.UTF-8
 
+# Set up Go environment
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
 # Correct improperly entered commands
 eval "$(thefuck --alias nope)"
 
