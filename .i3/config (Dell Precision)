@@ -112,7 +112,7 @@ workspace "0:vm" output LVDS1
 workspace "chat" output LVDS1
 workspace "mail" output LVDS1
 
-# switch to workspacees with $mod+[workspace number]
+# switch to workspaces with $mod+[workspace number]
 bindsym $mod+1 workspace 1:cmd
 bindsym $mod+2 workspace 2:web
 bindsym $mod+3 workspace 3:irc
