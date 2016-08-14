@@ -22,8 +22,7 @@ setopt completealiases
 ENABLE_CORRECTION="true"
 
 # Select which plugins to load
-plugins=(sudo tmux web-search history zsh-completions autojump common-aliases 
-rand-quote systemd)
+plugins=(sudo tmux web-search history zsh-completions autojump common-aliases rand-quote systemd)
 
 # Set path
 export PATH="/usr/lib/ccache:/usr/local/bin:/usr/bin:/bin:/usr/games:/usr/bin/core_perl"
