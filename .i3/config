@@ -16,8 +16,14 @@ floating_modifier $mod
 # reload the configuration file
 bindsym $mod+Shift+r reload
 
+# start redshift
+exec --no-startup-id redshift
+
+# launch mpd
+exec --no-startup-id mpd ~/.config/mpd/mpd.conf && mpc pause
+
 # set wallpaper
-exec --no-startup-id feh --bg-scale "/home/sinc/Dropbox/Public/Wallpapers/800/Calvin and Hobbes.png"
+exec --no-startup-id feh --bg-scale "~/Dropbox/Public/Wallpapers/800/Calvin and Hobbes.png"
 
 # start autossh
 exec --no-startup-id autossh -M 2050 -f -N -D 1336 gate
@@ -88,7 +94,7 @@ bindsym $mod+d exec deluge
 bindsym $mod+e exec pcmanfm
 bindsym $mod+g exec gimp
 bindsym $mod+h exec hexchat
-bindsym $mod+m exec quodlibet
+bindsym $mod+m exec muss
 bindsym $mod+o exec libreoffice
 bindsym $mod+p exec darktable
 bindsym $mod+Shift+p exec rawtherapee
@@ -106,7 +112,7 @@ bindcode 232 exec /usr/sbin/lowerbrightness
 bindcode 233 exec /usr/sbin/raisebrightness
 
 # lock and blank screen
-bindsym $mod+l exec i3lock -i "/home/sinc/Dropbox/Public/Wallpapers/800/Calvin and Hobbes.png" && sleep 1 && xset dpms force off
+bindsym $mod+l exec i3lock -i "~/Dropbox/Public/Wallpapers/800/Calvin and Hobbes.png" && sleep 1 && xset dpms force off
 
 # adjust volume
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
@@ -123,7 +129,7 @@ bindcode 174 exec mpc stop
 bindsym $mod+i bar mode toggle
 
 # scrot with prtsc key
-bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f /home/sinc/Screenshots/'
+bindcode 107 exec scrot '%Y%m%d-%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/Screenshots/'
   
 # kill focused window
 bindsym $mod+q kill
@@ -165,14 +171,13 @@ mode "resize" {
  
 # start i3bar
 bar {
-	position top
-	colors {
-#		background #383a3b
-		background #002b36
-		statusline #888888
-	}
-    #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    position top
+    strip_workspace_numbers yes
+    colors {
+	background #002b36
+	statusline #888888
+    }
     font pango:Terminus 10
-	tray_output LVDS-0
-	status_command i3status
+    tray_output LVDS-0
+    status_command i3status
 }
