@@ -1,0 +1,156 @@
+# i3 config file
+# created by Sinc
+
+# assign windows key to $mod
+set $mod Mod4
+
+# assign alt key to $alt
+set $alt Mod1
+
+# open urxvt tmux session with $mod+enter (requires https://github.com/JustinSinc/dotfiles/blob/master/Scripts/attach.sh)
+bindsym $mod+Return exec attach
+
+# open urxvt with $mod+shift+enter
+bindsym $mod+Shift+Return exec st
+
+# drag windows with $mod plus mouse
+floating_modifier $mod
+
+# reload the configuration file with $mod-r
+bindsym $mod+Shift+r reload
+
+# start usb automounting service
+exec --no-startup-id devmon
+
+# start dropbox
+exec --no-startup-id ~/.dropbox-dist/dropboxd
+
+# set dpi
+exec --no-startup-id xrandr --dpi 192
+
+# hide window titles on startup
+for_window [class="^.*"] border pixel 0
+
+# hide window borders
+hide_edge_borders both
+
+# create workspaces
+workspace "1:cmd" output LVDS1
+workspace "2:web" output LVDS1
+workspace "3:irc" output LVDS1
+workspace "4:mp3" output LVDS1
+workspace "5:art" output LVDS1
+workspace "6:misc" output LVDS1
+
+# switch to workspaces with $mod+[workspace number]
+bindsym $mod+1 workspace 1:cmd
+bindsym $mod+2 workspace 2:web
+bindsym $mod+3 workspace 3:irc
+bindsym $mod+4 workspace 4:mp3
+bindsym $mod+5 workspace 5:art
+bindsym $mod+6 workspace 6:misc
+
+# move focused container to workspace with $mod+shift+[workspace number]
+bindsym $mod+Shift+1 move container to workspace 1:cmd
+bindsym $mod+Shift+2 move container to workspace 2:web
+bindsym $mod+Shift+3 move container to workspace 3:irc
+bindsym $mod+Shift+4 move container to workspace 4:mp3
+bindsym $mod+Shift+5 move container to workspace 5:art
+bindsym $mod+Shift+6 move container to workspace 6:misc
+
+# open applications in specific workspaces
+assign [class="Google-chrome"]	2:web
+assign [class="Hexchat"]        3:irc
+assign [class="Audacity"]       4:mp3
+assign [class="Darktable"]      5:art
+assign [class="Gimp"]           5:art
+assign [class="Qbittorrent"]    6:misc
+assign [class="Wireshark"]      6:misc
+assign [class="discord"]	6:misc
+
+# application keybinds
+bindsym $mod+a exec audacity
+bindsym $mod+d exec discord
+bindsym $mod+e exec pcmanfm
+bindsym $mod+g exec gimp
+bindsym $mod+h exec hexchat
+bindsym $mod+o exec libreoffice
+bindsym $mod+w exec google-chrome-stable --force-device-scale-factor=2
+bindsym $mod+Shift+w exec wireshark
+
+# open calculator with Calc key
+bindcode 148 exec galculator
+
+# always open calculator floating
+for_window [class="Galculator"] floating enable
+
+# switch workspaces with PgUp/PgDown keys
+bindcode 112 workspace prev
+bindcode 117 workspace next
+
+# lock and blank screen with $mod+l
+bindsym $mod+l exec slock
+
+# control volume
+bindcode 121 exec amixer -c2 -M set Master toggle 
+bindcode 122 exec amixer -c2 -M set Master 10%-
+bindcode 123 exec amixer -c2 -M set Master 10%+
+
+# hide i3bar with $mod+i
+bindsym $mod+i bar mode toggle
+
+# kill focused window with $mod+q
+bindsym $mod+q kill
+
+# enter fullscreen mode for the focused container with $mod+f
+bindsym $mod+f fullscreen
+
+# change focus between tiling / floating windows with $mod+space
+bindsym $mod+space focus mode_toggle
+
+# toggle tiling / floating with $mod+shift+space
+bindsym $mod+Shift+space floating toggle
+
+# change window splitting keybinds; $mod+| for horizontal, $mod+- for vertical
+bindcode $mod+20 split v
+bindcode $mod+51 split h
+
+# resize windows
+bindsym $mod+r mode "resize"
+mode "resize" {
+    # press left or j to shrink window width
+    # press right or k to grow window width
+    # press up or l to shrink window height
+    # press down or ; to grow window height
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    # exit resize mode with escape key
+    bindsym Escape mode "default"
+}
+
+# start i3bar
+bar {
+    position top
+    strip_workspace_numbers yes
+    font pango:DejaVuSansMono 24
+    tray_output LVDS-0
+    status_command i3status
+  colors {
+    separator #073642
+    background #002b36
+    statusline #268bd2
+  }
+}
+
+client.focused #859900 #859900 #fdf6e3 #859900
+client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #073642 #073642 #93a1a1 #586e75
+client.urgent #d33682 #d33682 #fdf6e3 #dc322f
