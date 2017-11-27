@@ -1,4 +1,4 @@
-# Set coloured path
+# Set coloured prompt
 autoload -U colors && colors
 autoload -Uz compinit && compinit
 PROMPT="%{$fg[white]%}%n%\%{$fg[blue]%}@%{$reset_color%}%{$fg[white]%}%m%{$reset_color%} %{$fg[yellow]%}%~ %{$reset_color%}%"
