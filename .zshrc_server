@@ -25,6 +25,7 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # Aliases
 alias ls='ls --color'
 alias vim="stty stop '' -ixoff ; vim"
+alias webclone='wget -p -k'
 
 # Preferred editor for local (vim) and remote (nano) sessions
 if [[ -n $SSH_CONNECTION ]]; then
