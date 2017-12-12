@@ -58,13 +58,9 @@ else
 fi
 
 # Aliases
-alias vpnon='sudo systemctl start openvpn@lasciel'
-alias vpnoff='sudo systemctl stop openvpn@lasciel'
-alias suspend='sudo systemctl suspend'
-alias shutdown='sudo systemctl poweroff'
+alias webclone='wget -p -k'
 alias rec='LC_ALL=en_US.UTF-8 asciinema rec'
 alias vim="stty stop '' -ixoff ; vim"
-alias syncmusic='rsync -av -u -h --ignore-existing --delete --no-perms --no-owner --no-group -e "ssh -p 443" --partial gate:/Music ~/'
 
 # Enable syntax highlighting
 source $ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
