@@ -38,7 +38,7 @@ ENABLE_CORRECTION="true"
 plugins=(sudo tmux web-search history zsh-completions autojump common-aliases rand-quote systemd docker encode64)
 
 # Set path
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/games:/usr/bin/core_perl"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/games:/usr/bin/core_perl"
 
 # Source config file
 source $ZSH/oh-my-zsh.sh
