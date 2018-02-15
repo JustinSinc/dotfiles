@@ -35,7 +35,7 @@ setopt completealiases
 ENABLE_CORRECTION="true"
 
 # Select which plugins to load
-plugins=(sudo tmux web-search history zsh-completions autojump common-aliases rand-quote systemd docker encode64)
+plugins=(sudo tmux web-search history zsh-completions autojump common-aliases rand-quote systemd docker encode64 aws)
 
 # Set path
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/games:/usr/bin/core_perl"
