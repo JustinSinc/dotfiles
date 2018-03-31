@@ -2,13 +2,13 @@
 export ZSH=~/.oh-my-zsh
 
 # Attach to tmux session
-existing_sessions=$(tmux list-sessions | head -n1 | cut -d ":" -f 1)
-if [ -z "$existing_sessions" ]
-  then
-    tmux >/dev/null 2>&1
-  else
-    tmux new-session -t $existing_sessions >/dev/null 2>&1
-fi
+#existing_sessions=$(tmux list-sessions | head -n1 | cut -d ":" -f 1)
+#if [ -z "$existing_sessions" ]
+#  then
+#    tmux >/dev/null 2>&1
+#  else
+#    tmux new-session -t $existing_sessions >/dev/null 2>&1
+#fi
 
 # set variables
 export rdp_host=''
