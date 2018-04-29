@@ -87,6 +87,11 @@ alias office-rdp='xfreerdp /u:"$rdp_user" /v:"$rdp_host" /f +fonts -themes -wall
 # create a local mirror of a remote site at ~/Mirrored/
 alias mirror='wget -p -k -H -P ~/Mirrored/ -e robots=off'
 
+# function to generate thumbnails of all JPGs in a directory
+thumbnail() {
+        find . -type f -iname "*.JPG" -exec sh -c "convert "\$1" -resize 800x800\> \"\$PWD\"/"\${1%.JPG}_thumb.JPG"" \-\- \{\} \;
+}
+
 # Enable syntax highlighting
 source $ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
