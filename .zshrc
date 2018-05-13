@@ -89,7 +89,7 @@ alias mirror='wget -p -k -H -P ~/Mirrored/ -e robots=off'
 
 # function to generate thumbnails of all JPGs in a directory
 thumbnail() {
-        find . ! -name "*_thumb*" -type f -iname "*.JPG" -exec sh -c "convert "\$1" -resize 800x800\> \"\$PWD\"/"\${1%.JPG}_thumb.JPG"" \-\- \{\} \;
+        find . ! -name "*_thumb*" -type f -iname "*.JPG" -execdir sh -c "if [ ! -f {}_thumb.JPG ]; then convert -resize 800x800 {} {}_thumb.JPG;fi" -- ';'
 }
 
 # Enable syntax highlighting
