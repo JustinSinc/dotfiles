@@ -10,10 +10,6 @@ export ZSH=~/.oh-my-zsh
 #    tmux new-session -t $existing_sessions >/dev/null 2>&1
 #fi
 
-# set variables
-export rdp_host=''
-export rdp_user=''
-
 # Disable auto-updates
 DISABLE_AUTO_UPDATE=true
 
@@ -35,7 +31,7 @@ setopt completealiases
 ENABLE_CORRECTION="true"
 
 # Select which plugins to load
-plugins=(sudo tmux web-search history zsh-completions autojump common-aliases rand-quote systemd docker encode64 aws)
+plugins=(sudo tmux history zsh-completions autojump common-aliases systemd docker encode64)
 
 # Set path
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/games:/usr/bin/core_perl"
@@ -70,22 +66,14 @@ fi
 ## Aliases
 # colourised ls
 alias ls='ls --color'
-# systemd aliases
-alias suspend='sudo systemctl suspend'
-alias shutdown='sudo systemctl poweroff'
 # fix scroll lock shortcuts for vim
 alias vim="stty stop '' -ixoff ; vim"
-# openvpn management
-alias vpnon='sudo systemctl start openvpn@lasciel'
-alias vpnoff='sudo systemctl stop openvpn@lasciel'
 # update remote hosts (please don't store production ansible vaults in dropbox)
 alias update='ansible-playbook ~/Dropbox/ansible/updates.yml --vault-password-file=~/Dropbox/ansible/vault.txt'
-# mirror subdirectories from the-eye.eu
-alias eye="wget -m -np -c -R 'index.html*,*.chm*'"
-# rdp to office workstation
-alias office-rdp='xfreerdp /u:"$rdp_user" /v:"$rdp_host" /f +fonts -themes -wallpaper +clipboard /scale:180'
-# create a local mirror of a remote site at ~/Mirrored/
-alias mirror='wget -p -k -H -P ~/Mirrored/ -e robots=off'
+# regenerate image gallery
+alias gallery-regen="$HOME/scanner/main.py /storage/pics/albums /storage/pics/cache"
+# set permissions for shared folders
+alias web-perms='sudo chown -R www-data:www-data /storage && sudo chmod -R 775 /storage'
 
 # function to generate thumbnails of all JPGs in a directory
 thumbnail() {
