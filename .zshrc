@@ -77,7 +77,18 @@ alias web-perms='sudo chown -R www-data:www-data /storage && sudo chmod -R 775 /
 
 # function to generate thumbnails of all JPGs in a directory
 thumbnail() {
-        find . ! -name "*_thumb*" -type f -iname "*.JPG" -execdir sh -c "if [ ! -f {}_thumb.JPG ]; then convert -resize 800x800 {} {}_thumb.JPG;fi" -- ';'
+ find . ! -name "*_thumb*" -type f -iname "*.JPG" -execdir sh -c "if [ ! -f {}_thumb.JPG ]; then convert -resize 800x800 {} {}_thumb.JPG;fi" -- ';'
+}
+
+# function for basic timestamped host pings
+pinglog () {
+ if [ "$#" -ne 2 ]; then
+  echo "Usage: pinglog <address> <account>"
+  exit
+ fi
+ pinghost="$1"
+ account="$2"
+ ping "$pinghost" 2>&1 | while read pong; do echo "$(date): $pong" | tee -a "$account".log;done
 }
 
 # Enable syntax highlighting
