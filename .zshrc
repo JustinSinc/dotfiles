@@ -81,14 +81,14 @@ thumbnail() {
 }
 
 # function for basic timestamped host pings
-pinglog () {
+pinglog (){
  if [ "$#" -ne 2 ]; then
-  echo "Usage: pinglog <address> <account>"
-  exit
+        echo "Usage: pinglog <address> <account>"
+        exit
  fi
  pinghost="$1"
  account="$2"
- ping "$pinghost" 2>&1 | while read pong; do echo "$(date): $pong" | tee -a "$account".log;done
+ ping -O "$pinghost" 2>&1 | while read pong; do echo "$(date): $pong" | tee -a "$account".log;done
 }
 
 # Enable syntax highlighting
