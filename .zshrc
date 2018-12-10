@@ -68,12 +68,8 @@ fi
 alias ls='ls --color'
 # fix scroll lock shortcuts for vim
 alias vim="stty stop '' -ixoff ; vim"
-# update remote hosts (please don't store production ansible vaults in dropbox)
-alias update='ansible-playbook ~/Dropbox/ansible/updates.yml --vault-password-file=~/Dropbox/ansible/vault.txt'
-# regenerate image gallery
-alias gallery-regen="$HOME/scanner/main.py /storage/pics/albums /storage/pics/cache"
 # set permissions for shared folders
-alias web-perms='sudo chown -R www-data:www-data /storage && sudo chmod -R 775 /storage'
+alias web-perms='sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 775 /var/www/html'
 
 # function to generate thumbnails of all JPGs in a directory
 thumbnail() {
