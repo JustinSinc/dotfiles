@@ -70,6 +70,8 @@ alias ls='ls --color'
 alias vim="stty stop '' -ixoff ; vim"
 # set permissions for shared folders
 alias web-perms='sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 775 /var/www/html'
+# ssh via gate as jump host
+alias sshj='ssh -t gate ssh -t'
 
 # function to generate thumbnails of all JPGs in a directory
 thumbnail() {
