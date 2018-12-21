@@ -72,6 +72,8 @@ alias vim="stty stop '' -ixoff ; vim"
 alias web-perms='sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 775 /var/www/html'
 # ssh via gate as jump host
 alias sshj='ssh -t gate ssh -t'
+# view ports and the processes they are bound to
+alias portcheck='sudo lsof -i -P -n | grep LISTEN'
 
 # function to generate thumbnails of all JPGs in a directory
 thumbnail() {
