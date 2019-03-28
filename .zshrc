@@ -74,6 +74,8 @@ alias web-perms='sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 
 alias sshj='ssh -t gate ssh -t'
 # view ports and the processes they are bound to
 alias portcheck='sudo lsof -i -P -n | grep LISTEN'
+# view current public ip
+alias myip='curl icanhazip.com'
 
 # function to generate thumbnails of all JPGs in a directory
 thumbnail() {
