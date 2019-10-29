@@ -1,15 +1,6 @@
 # Path to oh-my-zsh installation
 export ZSH=~/.oh-my-zsh
 
-# Attach to tmux session
-#existing_sessions=$(tmux list-sessions | head -n1 | cut -d ":" -f 1)
-#if [ -z "$existing_sessions" ]
-#  then
-#    tmux >/dev/null 2>&1
-#  else
-#    tmux new-session -t $existing_sessions >/dev/null 2>&1
-#fi
-
 # Disable auto-updates
 DISABLE_AUTO_UPDATE=true
 
@@ -31,10 +22,10 @@ setopt completealiases
 ENABLE_CORRECTION="true"
 
 # Select which plugins to load
-plugins=(sudo tmux history zsh-completions autojump common-aliases systemd docker encode64)
+plugins=(sudo tmux history autojump common-aliases systemd encode64)
 
 # Set path
-export PATH="/snap/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/games:/usr/bin/core_perl"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/games:/usr/bin/core_perl:$HOME/bin"
 
 # Source config file
 source $ZSH/oh-my-zsh.sh
@@ -44,11 +35,14 @@ export LANG=en_US.UTF-8
 
 # Set up Go environment
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
 
 # Enable command completion
 autoload -U compinit
 compinit
+
+autoload -U bashcompinit
+bashcompinit
 
 # Allow arrow key control of completions
 zstyle ':completion:*' menu select
@@ -56,33 +50,24 @@ zstyle ':completion:*' menu select
 # Find any new executables in path
 zstyle ':completion:*' rehash true
 
-# Preferred editor for local (vim) and remote (nano) sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
-else
-  export EDITOR='vim'
-fi
-
 ## Aliases
-# colourised ls
+alias rec='LC_ALL=en_US.UTF-8 asciinema rec'
 alias ls='ls --color'
-# fix scroll lock shortcuts for vim
 alias vim="stty stop '' -ixoff ; vim"
-# set permissions for shared folders
-alias web-perms='sudo chown -R www-data:www-data /var/www/html && sudo chmod -R 775 /var/www/html'
-# ssh via gate as jump host
-alias sshj='ssh -t gate ssh -t'
-# view ports and the processes they are bound to
+alias mirror='wget -p -k -H -P ~/Mirrored/ -e robots=off'
+alias web-perms='sudo chown -R www-data:www-data /var/www/ && sudo chmod -R 775 /var/www/'
 alias portcheck='sudo lsof -i -P -n | grep LISTEN'
-# view current public ip
-alias myip='curl icanhazip.com'
+alias wg='sudo wg'
+alias wg-quick='sudo wg-quick'
+alias share='nc blaming.me 3001'
 
-# function to generate thumbnails of all JPGs in a directory
-thumbnail() {
- find . ! -name "*_thumb*" -type f -iname "*.JPG" -execdir sh -c "if [ ! -f {}_thumb.JPG ]; then convert -resize 800x800 {} {}_thumb.JPG;fi" -- ';'
+## Functions
+# check the current weather
+weather (){
+        curl wttr.in/$1
 }
 
-# function for basic timestamped host pings
+# monitor and log dropped pings to a host
 pinglog (){
  if [ "$#" -ne 2 ]; then
         echo "Usage: pinglog <address> <account>"
@@ -91,6 +76,44 @@ pinglog (){
  pinghost="$1"
  account="$2"
  ping -O "$pinghost" 2>&1 | while read pong; do echo "$(date): $pong" | tee -a "$account".log;done
+}
+
+# generate thumbnails of all JPGs in a directory
+thumbnail() {
+        find . ! -name "*_thumb*" -type f -iname "*.JPG" -execdir sh -c "if [ ! -f {}_thumb.JPG ]; then convert -resize 800x800 {} {}_thumb.JPG;fi" -- ';'
+}
+
+# regenerate photofloat galleries
+gallery-regen() {
+        $HOME/scanner/main.py /var/www/html/cdn.seedno.de/pics/albums /var/www/html/cdn.seedno.de/pics/cache
+}
+
+# ratelimited recursive download
+friendly-download() {
+        wget --limit-rate=100k -m -np -c -w 5 -R "index.html*" "$1"
+}
+
+# run ansible playbooks
+update() {
+        # if no arguments are provided, list all existing playbooks
+        if [ "$#" -eq 0 ]; then
+                echo -e "\nAvailable playbooks:"
+                find ~/ansible/*.yml -type f -printf '%f\n' | sed 's/\.yml$//'
+                echo -e ""
+                exit 1
+        fi
+
+        # create array of arguments
+        todo=( "$@" )
+
+        # iterate through the array, running playbooks if they exist
+        for playbook in "${todo[@]}"; do
+                if [ -f ~/ansible/"$playbook".yml ]; then
+                        ansible-playbook ~/ansible/"$playbook".yml --vault-password-file=~/ansible/vault.txt
+                else
+                        echo "Playbook $playbook.yml does not exist"
+                fi
+        done
 }
 
 # Enable syntax highlighting
