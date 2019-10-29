@@ -93,14 +93,14 @@ friendly-download() {
         wget --limit-rate=100k -m -np -c -w 5 -R "index.html*" "$1"
 }
 
-# run ansible playbooks
+# run ansible playbooks (blah blah blah, best practices best schmactices)
 update() {
         # if no arguments are provided, list all existing playbooks
         if [ "$#" -eq 0 ]; then
                 echo -e "\nAvailable playbooks:"
                 find ~/ansible/*.yml -type f -printf '%f\n' | sed 's/\.yml$//'
                 echo -e ""
-                exit 1
+                return
         fi
 
         # create array of arguments
