@@ -59,7 +59,7 @@ alias web-perms='sudo chown -R www-data:www-data /var/www/ && sudo chmod -R 775 
 alias portcheck='sudo lsof -i -P -n | grep LISTEN'
 alias wg='sudo wg'
 alias wg-quick='sudo wg-quick'
-alias share='nc blaming.me 3001'
+alias share='nc 10.25.0.1 3001'
 
 ## Functions
 # check the current weather
