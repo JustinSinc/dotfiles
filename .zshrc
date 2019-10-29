@@ -111,7 +111,7 @@ update() {
                 if [ -f ~/ansible/"$playbook".yml ]; then
                         ansible-playbook ~/ansible/"$playbook".yml --vault-password-file=~/ansible/vault.txt
                 else
-                        echo "Playbook $playbook.yml does not exist"
+                        echo -e "\nPlaybook $playbook.yml does not exist\n"
                 fi
         done
 }
